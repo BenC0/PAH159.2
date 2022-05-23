@@ -1,4 +1,15 @@
-.pah .pah000_loaded,
-body.pah000_loaded {
+.pah .pah159_2_loaded,
+body.pah159_2_loaded {
+    & .add-to-basket__btn-row .add-to-basket__add-btn.btn {
+        display: none !important;
+    }
 
+    & .pah159_additional_messaging {
+        font-size: 0.8rem;
+    }
+
+    & .btn.pdp_add_to_basket {
+        margin: 1.25rem auto 0;
+        min-width: 200px;
+    }
 }

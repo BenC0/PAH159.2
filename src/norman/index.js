@@ -30,7 +30,7 @@ export function init(Variant) {
 		poll(Variant.conditions, _ => {
 			document.body.classList.add(`${id}_loaded`)
 			Variant.actions()
-		}, 0.5)
+		}, 5, 10, Variant.fallback)
 	}
 	return {
 		id,

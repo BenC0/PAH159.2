@@ -5,11 +5,12 @@
  * @param {number} pollInterval - time interval between polls
  * @param {number} pollLimit - how many times to poll before giving up
  */
-export default function poll(
+ export default function poll(
     tfn,
     cb,
     pollInterval = 5,
-    pollLimit = 10
+    pollLimit = 10,
+    fallback = null
 ) {
     let x = 0;
 
@@ -19,11 +20,15 @@ export default function poll(
 
     let doPoll = function doPoll() {
         let r = tfn();
+        x++
 
         if (r) {
             cb();
-        } else if (!r && x++ < pollLimit) {
+        } else if (!r && x < pollLimit) {
             timeout();
+        } else if(!!fallback && !r && x >= pollLimit) {
+            console.warn("Polling failed, calling fallback")
+            fallback()
         }
     };
     timeout();

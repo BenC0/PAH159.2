@@ -1,24 +1,54 @@
 import variationCSS from "./index.css";
-import norman from "../norman/index.js"
+import { log, track, init, config } from "../norman/index.js"
+import pdp_add_to_basket from "../pdp_add_to_basket/index"
+import detect_page from "../detect_page"
+import { is_in_list } from "../subscribe/init";
+import { checkout_is_valid, make_selection } from "../checkout_delivery_preselection"
 
-function init() {
-    norman.core.log("Variation 1")
-    norman.core.track(Variant.name, "Loaded", true)
+function actions() {
+    log({
+        "Variation": this.name,
+        "Page Type": this.page_type
+    })
+    track(`${this.name} Loaded`, `Loaded`, true)
+    track(this.name, `${this.name}: ${this.page_type} Loaded`, false)
+    
+    if(this.page_type == "pdp") {
+        log("Running PDP Changes")
+        pdp_add_to_basket.add_cta()
+    } else if (this.page_type == "checkout") {
+        log("Running Checkout Changes")
+        make_selection("cnc")
+    }
 }
 
 const Variant = {
     name: "Variation 1",
     css: variationCSS,
+    page_type: detect_page(),
     conditions: () => {
         let conditions = []
-        conditions.push(true)
-        norman.core.log({message: `Polling: Conditions`, conditions})
+        let page = detect_page()
+        if(page == "pdp") {
+            conditions.push(pdp_add_to_basket.isValid())
+            conditions.push(!is_in_list())
+        } else if (page == "checkout") {
+            conditions.push(checkout_is_valid())
+        } else {
+            conditions.push(false)
+        }
+        log({message: `Polling: Conditions`, conditions})
         let result = conditions.every(a => a)
-        norman.core.log({message: `Polling: Result`, result})
+        log({message: `Polling: Result`, result})
         return result
     },
-    actions: init,
+    actions,
+    fallback: _ => {
+        log(`Firing not loaded event`)
+        let page = window.location.pathname
+        track(`${Variant.name} Not loaded`, `${Variant.name}: ${page} Not loaded`, false)
+    }
 }
 
-let nVariant = norman.init(Variant)
+let nVariant = init(Variant)
 nVariant.run()

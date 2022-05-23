@@ -1,13 +1,11 @@
-import log from "./norman_modules/core/log.js"
-
 export const config = {
-    "id": "pah000",
+    "id": "pah159_2",
     "tracking": {
         "google_analytics": {
-            "dimension": false
+            "dimension": 30
         },
         "hotjar": {
-            "heatmaps": false
+            "heatmaps": true
         }
     }
 }
