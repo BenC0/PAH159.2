@@ -42,7 +42,9 @@ export default function detect_status() {
 		}
 	}
 
+	status.easyRepeat = check_ctas(status.elements.oneTimePurchase)
 	status.oneTimePurchase = check_ctas(status.elements.oneTimePurchase)
+	status.oneTimePurchaseEasyRepeatModule = check_ctas(status.elements.oneTimePurchaseEasyRepeatModule)
 
 	return status
 }
