@@ -1,7 +1,8 @@
 import variationCSS from "./index.css";
-import { log, track, init, config } from "../norman/index.js"
+import { log, track, init, config, elementManagement } from "../norman/index.js"
 import pdp_add_to_basket from "../pdp_add_to_basket/index"
 import detect_page from "../detect_page"
+import er_module from "../pdp_add_to_basket/er_module";
 import { is_in_list } from "../subscribe/init";
 import { checkout_is_valid, make_selection } from "../checkout_delivery_preselection"
 
@@ -15,6 +16,7 @@ function actions() {
     
     if(this.page_type == "pdp") {
         log("Running PDP Changes")
+        er_module.insert()
         pdp_add_to_basket.add_cta()
     } else if (this.page_type == "checkout") {
         log("Running Checkout Changes")
@@ -37,6 +39,7 @@ const Variant = {
         } else {
             conditions.push(false)
         }
+        conditions.push(!elementManagement.exists('[test="pah159_2"]'))
         log({message: `Polling: Conditions`, conditions})
         let result = conditions.every(a => a)
         log({message: `Polling: Result`, result})

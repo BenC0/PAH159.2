@@ -1,6 +1,6 @@
 .pah .pah159_2_loaded,
 body.pah159_2_loaded {
-    & .add-to-basket__btn-row .add-to-basket__add-btn.btn {
+    & #checkout-combo {
         display: none !important;
     }
 
