@@ -8,7 +8,7 @@ export default function add_cta() {
     let el = elementManagement.add(cta_html, "beforeBegin", "#checkout-combo")
     el.addEventListener("click", e => {
         log({"msg": "Add to Basket CTA clicked", el})
-        handle_interaction()
+        // handle_interaction()
     })
     log({el})
     
