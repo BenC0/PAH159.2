@@ -1,4 +1,4 @@
-import { elementManagement, log } from "../norman/index"
+import { elementManagement, log, norman } from "../norman/index"
 import detect_status from "./detect_status"
 import cta_html from "./cta.html"
 import handle_interaction from "./handle_interaction"
@@ -11,4 +11,6 @@ export default function add_cta() {
         handle_interaction()
     })
     log({el})
+    
+    el.setAttribute("style", `z-index: ${norman.utils.getHighestZIndex() + 1}`)
 }
