@@ -10,11 +10,18 @@ export function get_frequency_savings() {
     }
 }
 
+export function active_toggle(e) {
+    let ct = e.currentTarget
+    elementManagement.getAll(`[test="pah159_2"] .frequency`).forEach(el => el.classList.remove("active"))
+    ct.classList.add("active")
+}
+
 export function insert() {
     let savings = get_frequency_savings()
     let el = elementManagement.add(template, "beforeBegin", "#checkout-combo")
-    console.log({el})
     el.querySelector(".frequency.er .saving").textContent = `${savings.er}`
+
+    el.querySelectorAll(".frequency").forEach(el => el.addEventListener("click", active_toggle))
 }
 
 export const er_module = {
