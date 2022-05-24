@@ -1,18 +1,25 @@
 <div test="pah159_2" class="cta_module">
-    <label for="prod_qty" class="qty_selector">
-        <select name="prod_qty" id="prod_qty">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="custom">More</option>
-        </select>
-    </label>
-    <a class="btn pdp_add_to_basket">Add to basket</a>
+    <div class="qty_selector">
+        <label for="prod_qty_dd" data-value="1">
+            <select name="prod_qty_dd" id="prod_qty_dd">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="custom">Custom</option>
+            </select>
+        </label>
+        <label for="prod_qty_input">
+            <input name="prod_qty_input" id="prod_qty_input" type="number" min="0" step="1"/>
+        </label>
+    </div>    
+    <div class="cta_container">
+        <a class="btn pdp_add_to_basket">Add to basket</a>
+    </div>
 </div>
