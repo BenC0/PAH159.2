@@ -5,6 +5,8 @@ import detect_page from "../detect_page"
 import er_module from "../pdp_add_to_basket/er_module";
 import { is_in_list } from "../subscribe/init";
 import { checkout_is_valid, make_selection } from "../checkout_delivery_preselection"
+import fulfillment from "../fulfillment_module/"
+
 
 function actions() {
     log({
@@ -18,6 +20,7 @@ function actions() {
         log("Running PDP Changes")
         er_module.insert(pdp_add_to_basket.update_price)
         pdp_add_to_basket.add_cta(true)
+        fulfillment.add_methods()
     } else if (this.page_type == "checkout") {
         log("Running Checkout Changes")
         make_selection("cnc")

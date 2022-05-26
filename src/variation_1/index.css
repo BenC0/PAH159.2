@@ -4,10 +4,6 @@ body.pah159_2_loaded {
     & #checkout-combo {
         display: none !important;
     }
-
-    & #gis-cta-container {
-        transform: translateY(-100px);
-    }
     
     & [test="pah159_2"] {
         --er-brand: #5A2C82;
@@ -155,6 +151,11 @@ body.pah159_2_loaded {
             bottom: 0;
             z-index: 1;
             position: fixed;
+
+        }
+
+        &.sticky ~ .gis-cta-reset #gis-cta-container {
+            transform: translateY(-100px);
         }
 
         & .cta_container {
@@ -191,6 +192,61 @@ body.pah159_2_loaded {
                     text-align: center;
                     font-family: 'Museo', sans-serif;
                     border: 1px solid rgba(0,0,0,.15);
+                }
+            }
+        }
+    }
+
+    & .fulfillment_module {
+        font-family: 'Museo', sans-serif;
+        padding: 2.5rem 2rem;
+
+        & .method {
+            display: flex;
+            align-items: flex-start;
+
+            &:not(:last-child) {
+                margin-bottom: 2.5rem;
+            }
+
+            & > svg {
+                --size: 30px;
+                width: var(--size);
+                height: var(--size);
+
+                margin-right: 1rem;
+            }
+
+            & .copy {
+                flex-grow: 1;
+
+                & .availability_ind {
+                    --size: 16px;
+                    width: var(--size);
+                    height: var(--size);
+                    margin-right: 0.5rem;
+                }
+
+                & .headline {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: .75rem;
+
+                    & .title {
+                        font-weight: 700;
+                        font-size: 1rem;
+                    }
+                }
+
+                & .availability_msg {
+                    font-size: .8rem;
+                }
+
+                & .method_link {
+                    margin-top: 1rem;
+                    font-size: .875rem;
+                    display: inline-block;
+                    color: var(--pets-brand-dark);
                 }
             }
         }
