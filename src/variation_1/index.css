@@ -46,10 +46,15 @@ body.pah159_2_loaded {
                 margin: 1rem 0 0;
                 flex-direction: column;
                 border-radius: var(--br);
+
+                &, & * {
+                    transition: all .35s ease-in-out;
+                }
                 
                 &.active,
                 &:hocus {
-                    box-shadow: 0px 2px 3px rgba(0,0,0,.15);
+                    box-shadow: 0px 2px 3px rgba(0,0,0,.15),
+                                0px 0px 6px rgba(0,0,0,.15);
                 }
 
                 & label {
@@ -91,7 +96,10 @@ body.pah159_2_loaded {
 
                 & .frequency_selector {
                     width: 100%;
+                    max-height: 150px;
+                    overflow: hidden;
                     padding: 0 1em 1em;
+                    box-sizing: border-box;
                     background: var(--white);
                     border-radius: var(--br);
 
@@ -120,7 +128,8 @@ body.pah159_2_loaded {
 
                 &:not(.active) {
                     & .frequency_selector {
-                        display: none;
+                        padding: 0 1em;
+                        max-height: 0;
                     }
 
                     & [name="purchase_frequency_type"] {
@@ -166,7 +175,6 @@ body.pah159_2_loaded {
             padding: .75rem 1rem;
 
             & [for="prod_qty_input"] {
-                display: none;
             }
         }
     }
