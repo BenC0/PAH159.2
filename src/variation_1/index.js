@@ -16,8 +16,8 @@ function actions() {
     
     if(this.page_type == "pdp") {
         log("Running PDP Changes")
-        er_module.insert()
-        pdp_add_to_basket.add_cta()
+        er_module.insert(pdp_add_to_basket.update_price)
+        pdp_add_to_basket.add_cta(true)
     } else if (this.page_type == "checkout") {
         log("Running Checkout Changes")
         make_selection("cnc")

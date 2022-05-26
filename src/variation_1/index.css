@@ -48,7 +48,7 @@ body.pah159_2_loaded {
                 border-radius: var(--br);
 
                 &, & * {
-                    transition: all .35s ease-in-out;
+                    transition: all .1s cubic-bezier(0.42, 0, 1, 0.69);
                 }
                 
                 &.active,
@@ -144,37 +144,54 @@ body.pah159_2_loaded {
         display: flex;
         justify-content: center;
 
+        padding: 1rem;
+
         font-size: 16px;
         font-family: "Museo", sans-serif;
 
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 1;
-        position: fixed;
+        &.sticky {
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            position: fixed;
+        }
 
         & .cta_container {
             flex-grow: 1;
+            padding-left: .5rem;
 
             & .btn.pdp_add_to_basket {
+                min-width: unset;
+                max-width: unset;
                 width: 100%;
-                min-width: 100%;
-                max-width: 100%;
                 
                 font-size: 1rem;
-                border-radius: 0;
 
                 margin: 0 auto;
-                padding: 1.75rem 1rem;
+                padding: 1.5rem 0.5rem;
+
+                & .price {
+                    margin-left: 1ch;
+                }
             }
         }
 
         & .qty_selector {
             flex-grow: 0;
-            max-width: 128px;
-            padding: .75rem 1rem;
+            max-width: 100px;
+            padding-right: .5rem;
 
             & [for="prod_qty_input"] {
+
+                & input#prod_qty_input {
+                    width: 100%;
+                    height: 100%;
+                    font-size: 1rem;
+                    text-align: center;
+                    font-family: 'Museo', sans-serif;
+                    border: 1px solid rgba(0,0,0,.15);
+                }
             }
         }
     }

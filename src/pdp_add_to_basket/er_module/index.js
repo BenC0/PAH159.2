@@ -16,12 +16,15 @@ export function active_toggle(e) {
     ct.classList.add("active")
 }
 
-export function insert() {
+export function insert(update_cb) {
     let savings = get_frequency_savings()
     let el = elementManagement.add(template, "beforeBegin", "#checkout-combo")
     el.querySelector(".frequency.er .saving").textContent = `${savings.er}`
 
-    el.querySelectorAll(".frequency").forEach(el => el.addEventListener("click", active_toggle))
+    el.querySelectorAll(".frequency").forEach(el => el.addEventListener("click", e => {
+        active_toggle(e)
+        update_cb()
+    }))
 }
 
 export const er_module = {
