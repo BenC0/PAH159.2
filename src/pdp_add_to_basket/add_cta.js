@@ -27,7 +27,6 @@ export function get_selected_price() {
 
 export function update_price() {
     let selected_price = get_selected_price()
-    console.warn(selected_price)
     let el = elementManagement.get(`[test="pah159_2"] .pdp_add_to_basket .price`)
     if (el.length > 0) {
         el = el.pop()
@@ -40,9 +39,9 @@ export function add_cta(sticky=false) {
     let el = elementManagement.add(cta_html, "beforeBegin", "#checkout-combo")
     update_price()
     
-    el.addEventListener("click", e => {
+    el.querySelector(".cta_container").addEventListener("click", e => {
         log({"msg": "Add to Basket CTA clicked", el})
-        // handle_interaction()
+        handle_interaction()
     })
     log({el})
     
