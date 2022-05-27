@@ -1,0 +1,54 @@
+.fulfillment_module {
+    font-family: 'Museo', sans-serif;
+    padding: 2.5rem 2rem;
+
+    & .method {
+        display: flex;
+        align-items: flex-start;
+
+        &:not(:last-child) {
+            margin-bottom: 2.5rem;
+        }
+
+        & > svg {
+            --size: 30px;
+            width: var(--size);
+            height: var(--size);
+
+            margin-right: 1rem;
+        }
+
+        & .copy {
+            flex-grow: 1;
+
+            & .availability_ind {
+                --size: 16px;
+                width: var(--size);
+                height: var(--size);
+                margin-right: 0.5rem;
+            }
+
+            & .headline {
+                display: flex;
+                align-items: center;
+                margin-bottom: .75rem;
+
+                & .title {
+                    font-weight: 700;
+                    font-size: 1rem;
+                }
+            }
+
+            & .availability_msg {
+                font-size: .8rem;
+            }
+
+            & .method_link {
+                margin-top: 1rem;
+                font-size: .875rem;
+                display: inline-block;
+                color: var(--pets-brand-dark);
+            }
+        }
+    }
+}
