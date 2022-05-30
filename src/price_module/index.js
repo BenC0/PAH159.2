@@ -57,7 +57,8 @@ export function build_price(prices) {
 export function check_and_get_price(selector) {
     log(`Checking and getting ${selector}`)
     if (elementManagement.exists(selector)) {
-        let el = elementManagement.get(selector).pop()
+        let el = elementManagement.get(selector)[0]
+        console.warn(el, elementManagement.get(selector))
         return el.textContent.replace(/\(|\)/g, "").trim()
     } else {
         return ""
@@ -71,6 +72,8 @@ export function get_type() {
         selected_payment_type = selected_payment_type.pop()
         if(selected_payment_type.classList.contains("er")) {
             return "easy-repeat"
+        } else if (elementManagement.exists(`.pdp-offer-text__inner`)) {
+            return "sale"
         } else {
             return "one-time-purchase"
         }
@@ -81,10 +84,10 @@ export function get_prices() {
     log(`Getting product prices`)
     let type = get_type()
     let selectors = {
-        now: "#otOfferPrice",
+        now: "#otOfferPrice, #offerPrice",
         was: ".pdp-price__was",
-        saving: ".pdp-price__you-save",
-        normalised: "#otOfferPrice + .pdp-price__weight",
+        saving: ".pdp-offer-text__inner, .pdp-price__you-save",
+        normalised: "#otOfferPrice + .pdp-price__weight, #offerPrice + .pdp-price__weight",
     } 
     if (type == "easy-repeat") {
         selectors = {

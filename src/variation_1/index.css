@@ -1,6 +1,8 @@
 .pah .pah159_2_loaded,
 body.pah159_2_loaded {
+    & [data-module="pdp_offer_text"],
     & [data-module="add_to_basket"],
+    & [data-module="pdp_price"],
     & #checkout-combo {
         display: none !important;
     }

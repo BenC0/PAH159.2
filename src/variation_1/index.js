@@ -22,8 +22,8 @@ function actions() {
     if(this.page_type == "pdp") {
         log("Running PDP Changes")
         price.insert(anchor_selector)
-        price.update_price()
         er_module.insert(anchor_selector, status.isER, price.update_price)
+        price.update_price()
         pdp_add_to_basket.add_cta(anchor_selector)
         move_existing_fulfillment_methods(`.cta_module[test="pah159_2"]`)
     } else if (this.page_type == "checkout") {
