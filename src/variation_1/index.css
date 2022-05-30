@@ -315,4 +315,8 @@ body.pah159_2_loaded {
             }
         }
     }
+
+    & .pah195_2_deliveryPromise {
+        margin: 0 0 1em;
+    }
 }
