@@ -5,6 +5,7 @@ import detect_page from "../detect_page"
 import er_module from "../pdp_add_to_basket/er_module";
 import { is_in_list } from "../subscribe/init";
 import { checkout_is_valid, make_selection } from "../checkout_delivery_preselection"
+import price from "../price_module/index"
 
 function actions() {
     log({
@@ -16,7 +17,9 @@ function actions() {
     
     if(this.page_type == "pdp") {
         log("Running PDP Changes")
-        er_module.insert(pdp_add_to_basket.update_price)
+        price.insert()
+        price.update_price()
+        er_module.insert(price.update_price)
         pdp_add_to_basket.add_cta()
     } else if (this.page_type == "checkout") {
         log("Running Checkout Changes")

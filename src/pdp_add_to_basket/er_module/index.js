@@ -1,5 +1,6 @@
 import { elementManagement } from "../../norman"
 import template from "./template.html"
+import price from "../../price_module"
 
 export function get_frequency_savings() {
     let er_saving_el = elementManagement.get("#checkout-combo__offer-text-er").pop()

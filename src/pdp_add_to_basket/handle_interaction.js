@@ -54,6 +54,16 @@ export function handle_otp_interaction() {
     })
 }
 
+export function click_original_otp_cta() {
+    let otp_cta_sel = `.checkout-combo__content--OTP #add_to_cart`
+    if (elementManagement.exists(otp_cta_sel)) {
+        let el = elementManagement.get(otp_cta_sel).pop()
+        console.warn("This is where the og click happens")
+        el.click()
+    }
+
+}
+
 export default function handle_interaction() {
     let selected_payment_type = elementManagement.get(`.frequency.active`)
     if(!!selected_payment_type.length) {
@@ -62,7 +72,7 @@ export default function handle_interaction() {
             // Do the ER thing
         } else {
             // Do the OTP thing
-            // handle_otp_interaction()
+            click_original_otp_cta()
         }
     }
 }
