@@ -54,7 +54,7 @@ export function decrement_qty() {
 
 export function update_og_qty() {
     log("Updating OG Price")
-    let otp_qty_sels = `.checkout-combo__content--OTP .add-to-basket__inner:not([style*="display: none"]) #oneTimeQty, #quantity_nonsqp`
+    let otp_qty_sels = `.checkout-combo__content--OTP .add-to-basket__inner:not([style*="display: none"]) #oneTimeQty, #quantity_nonsqp, #quantity_easy-repeat`
     if (elementManagement.exists(otp_qty_sels)) {
         let qty_added_el = elementManagement.get(`[test="pah159_2"] #prod_qty_input`).pop(0)
         let qty = parseInt(qty_added_el.value)
@@ -73,16 +73,22 @@ export function handle_qty_operator(e) {
     update_og_qty()
 }
 
-export function add_cta(sticky=false, price=false) {
+export function add_cta(anchor_selector, sticky=false, price=false) {
     elementManagement.remove(".pdp_add_to_basket")
-    let el = elementManagement.add(cta_html, "beforeBegin", "#checkout-combo")
+    let el = elementManagement.add(cta_html, "beforeBegin", anchor_selector)
     if(price) {
         update_price()
     }
-    el.querySelector(".cta_container").addEventListener("click", e => {
+    el.querySelector(".pdp_add_to_basket").addEventListener("click", e => {
         log({"msg": "Add to Basket CTA clicked", el})
         update_og_qty()
         handle_interaction()
+    })
+    el.querySelector(`[href="#check_stock"]`).addEventListener("click", e => {
+        let btn = elementManagement.get(".add-to-basket__add-btn.stock-level-btn")
+        if (btn.length > 0) {
+            btn.pop(0).click()
+        }
     })
     
     el.querySelectorAll(".number_input_container .operator").forEach(el => el.addEventListener("click", e => {

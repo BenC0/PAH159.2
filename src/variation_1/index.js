@@ -14,13 +14,17 @@ function actions() {
     })
     track(`${this.name} Loaded`, `Loaded`, true)
     track(this.name, `${this.name}: ${this.page_type} Loaded`, false)
-    
+
+    const status = pdp_add_to_basket.detect_status()
+    const anchor_selector = status.isER && !status.isBoth ? "#checkout-combo" : !status.isER && !status.isBoth ? "#add-to-basket" : false
+    log({status, anchor_selector})
+    console.warn(status.isER)
     if(this.page_type == "pdp") {
         log("Running PDP Changes")
-        price.insert()
+        price.insert(anchor_selector)
         price.update_price()
-        er_module.insert(price.update_price)
-        pdp_add_to_basket.add_cta()
+        er_module.insert(anchor_selector, status.isER, price.update_price)
+        pdp_add_to_basket.add_cta(anchor_selector)
     } else if (this.page_type == "checkout") {
         log("Running Checkout Changes")
         make_selection("cnc")

@@ -55,7 +55,7 @@ export function handle_otp_interaction() {
 }
 
 export function click_original_otp_cta() {
-    let otp_cta_sel = `[for="one-time-purchase"] + .checkout-combo__content #add_to_cart`
+    let otp_cta_sel = `[for="one-time-purchase"] + .checkout-combo__content #add_to_cart, .add-to-basket__btn-row_otp #add_to_cart`
     if (elementManagement.exists(otp_cta_sel)) {
         let el = elementManagement.get(otp_cta_sel).pop()
         log("Clicking original otp CTA")

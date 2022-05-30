@@ -39,20 +39,24 @@ export function update_frequency_options() {
     }
 }
 
-export function insert(update_cb) {
-    let savings = get_frequency_savings()
-    let el = elementManagement.add(template, "beforeBegin", "#checkout-combo")
-    el.querySelector(".frequency.er .saving").textContent = `${savings.er}`
-    update_frequency_options()
-
-    el.querySelectorAll(".frequency").forEach(el => el.addEventListener("click", e => {
-        active_toggle(e)
-        update_cb()
-    }))
-
-    el.querySelectorAll("#purchase_frequency").forEach(el => el.addEventListener("change", e => {
-        update_og_frequency()
-    }))
+export function insert(anchor_selector, er_is_available, update_cb) {
+    let el = elementManagement.add(template, "beforeBegin", anchor_selector)
+    if (er_is_available) {
+        let savings = get_frequency_savings()
+        el.querySelector(".frequency.er .saving").textContent = `${savings.er}`
+        update_frequency_options()
+        
+        el.querySelectorAll(".frequency").forEach(el => el.addEventListener("click", e => {
+            active_toggle(e)
+            update_cb()
+        }))
+        
+        el.querySelectorAll("#purchase_frequency").forEach(el => el.addEventListener("change", e => {
+            update_og_frequency()
+        }))
+    } else {
+        el.querySelector(".frequency.er").remove()
+    }
 }
 
 export const er_module = {

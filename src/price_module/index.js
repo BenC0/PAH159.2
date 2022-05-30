@@ -1,9 +1,9 @@
 import {elementManagement, log} from "../norman"
 import price_template from "./price_template.html"
 
-export function insert() {
+export function insert(anchor_selector) {
     if (!elementManagement.exists(".price_module")) {
-        elementManagement.add(price_template, "beforeBegin", "#checkout-combo")
+        elementManagement.add(price_template, "beforeBegin", anchor_selector)
     }
 }
 

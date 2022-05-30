@@ -1,6 +1,6 @@
 .pah .pah159_2_loaded,
 body.pah159_2_loaded {
-    & .click-collect__overlay-trigger,
+    & [data-module="add_to_basket"],
     & #checkout-combo {
         display: none !important;
     }
@@ -231,76 +231,88 @@ body.pah159_2_loaded {
                 }
             }
         }
+
+        & .check_stock_link {
+            display: block;
+            text-align: center;
+            margin: 1.5em auto 1em;
+            text-decoration: underline;
+            color: var(--pets-brand-dark);
+        }
     }
 
-    & .price_module .pricing {
-        width: 100%;
-        padding: 1rem;
-        font-size: 1.6em;
-        font-family: "Museo", sans-serif;
+    & .price_module {
+        background: var(--white);
+     
+        & .pricing {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.6em;
+            font-family: "Museo", sans-serif;
 
-        display: grid;
-        grid-row-gap: .25em;
-        grid-column-gap: .25em;
-        grid-template-rows: 0.5em auto;
-        grid-template-columns: repeat(3, auto);
+            display: grid;
+            grid-row-gap: .25em;
+            grid-column-gap: .25em;
+            grid-template-rows: 0.5em auto;
+            grid-template-columns: repeat(3, auto);
 
-        & .saving {
-            grid-row: 1;
-            min-height: 1em;
-            font-size: 0.5em;
-            grid-column: 1 / span 3;
+            & .saving {
+                grid-row: 1;
+                min-height: 1em;
+                font-size: 0.5em;
+                grid-column: 1 / span 3;
+                
+                &:empty {
+                    display: none;
+                }
+            }
+
+            &[price_type="sale"] {
+                & .now,
+                & .saving {
+                    color: var(--red);
+                }
+            }
+
+            &[price_type="easy-repeat"] {
+                & .now,
+                & .saving {
+                    color: var(--er-brand);
+                }
+            }
+
+            & .main_price,
+            & .normalised {
+                grid-row: 2;
+            }
+            & .main_price {
+                display: flex;
+                align-items: flex-start;
+                grid-column: 1 / span 2;
+                justify-content: flex-start;
+            }
+
+            & .now {
+                font-size: 1em;
+                font-weight: bold;
+                margin-right: .3ch;
+                display: inline-block;
+            }
             
-            &:empty {
-                display: none;
+            & .was {
+                color: #B2B2B2;
+                font-size: .625em;
+                text-decoration: line-through;
             }
-        }
 
-        &[price_type="sale"] {
-            & .now,
-            & .saving {
-                color: var(--red);
+            & .normalised {
+                color: #737373;
+                grid-column: 3;
+                font-size: 0.5em;
+                display: inline-flex;
+                align-items: flex-end;
+                justify-content: flex-end;
             }
-        }
-
-        &[price_type="easy-repeat"] {
-            & .now,
-            & .saving {
-                color: var(--er-brand);
-            }
-        }
-
-        & .main_price,
-        & .normalised {
-            grid-row: 2;
-        }
-        & .main_price {
-            display: flex;
-            align-items: flex-start;
-            grid-column: 1 / span 2;
-            justify-content: flex-start;
-        }
-
-        & .now {
-            font-size: 1em;
-            font-weight: bold;
-            margin-right: .3ch;
-            display: inline-block;
-        }
-        
-        & .was {
-            color: #B2B2B2;
-            font-size: .625em;
-            text-decoration: line-through;
-        }
-
-        & .normalised {
-            color: #737373;
-            grid-column: 3;
-            font-size: 0.5em;
-            display: inline-flex;
-            align-items: flex-end;
-            justify-content: flex-end;
         }
     }
 }

@@ -1,4 +1,4 @@
 # TODO
-1. OTP page compatibility
-2. Multi-size products
+1. Multi-size products
+2. Move cnc thingmabob below the other thingy
 3. Radio input selection animation/transition
