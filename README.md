@@ -1,4 +1,4 @@
 # TODO
-1. Radio input selection animation/transition
-2. OTP page compatibility
-3. Multi-size products
+1. OTP page compatibility
+2. Multi-size products
+3. Radio input selection animation/transition
