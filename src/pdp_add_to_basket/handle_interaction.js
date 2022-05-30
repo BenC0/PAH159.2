@@ -55,13 +55,20 @@ export function handle_otp_interaction() {
 }
 
 export function click_original_otp_cta() {
-    let otp_cta_sel = `.checkout-combo__content--OTP #add_to_cart`
+    let otp_cta_sel = `[for="one-time-purchase"] + .checkout-combo__content #add_to_cart`
     if (elementManagement.exists(otp_cta_sel)) {
         let el = elementManagement.get(otp_cta_sel).pop()
-        console.warn("This is where the og click happens")
+        log("Clicking original otp CTA")
         el.click()
     }
+}
 
+export function click_original_er_cta() {
+    let otp_cta_sel = `[for="repeat-delivery"] + .checkout-combo__content #add-to-basket__inner_cc .add-to-basket__btn-row_er #add_to_cart`
+    if (elementManagement.exists(otp_cta_sel)) {
+        let el = elementManagement.get(otp_cta_sel).pop(0)
+        el.click()
+    }
 }
 
 export default function handle_interaction() {
@@ -70,6 +77,7 @@ export default function handle_interaction() {
         selected_payment_type = selected_payment_type.pop()
         if(selected_payment_type.classList.contains("er")) {
             // Do the ER thing
+            click_original_er_cta()
         } else {
             // Do the OTP thing
             click_original_otp_cta()

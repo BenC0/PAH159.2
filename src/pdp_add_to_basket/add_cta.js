@@ -53,17 +53,13 @@ export function decrement_qty() {
 }
 
 export function update_og_qty() {
-    console.log("Updating OG Price")
-    let otp_qty_sel = `.checkout-combo__content--OTP .add-to-basket__inner:not([style*="display: none"]) #oneTimeQty`
-    if (elementManagement.exists(otp_qty_sel)) {
-        console.log("OG Price Exists")
+    log("Updating OG Price")
+    let otp_qty_sels = `.checkout-combo__content--OTP .add-to-basket__inner:not([style*="display: none"]) #oneTimeQty, #quantity_nonsqp`
+    if (elementManagement.exists(otp_qty_sels)) {
         let qty_added_el = elementManagement.get(`[test="pah159_2"] #prod_qty_input`).pop(0)
         let qty = parseInt(qty_added_el.value)
-        
-        let qty_el = elementManagement.get(otp_qty_sel).pop()
-        console.log({qty_el, value: qty_el.value})
-        qty_el.value = qty
-        console.log({qty_el, value: qty_el.value})
+        let qty_els = elementManagement.getAll(otp_qty_sels)
+        qty_els.forEach(qty_el => qty_el.value = qty)
     }
 }
 
