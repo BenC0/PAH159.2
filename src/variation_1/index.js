@@ -1,7 +1,8 @@
 import variationCSS from "./index.css";
-import { log, track, init, config, elementManagement } from "../norman/index.js"
+import { log, track, init, config, elementManagement } from "../norman/index"
 import pdp_add_to_basket from "../pdp_add_to_basket/index"
 import detect_page from "../detect_page"
+import { move_existing_fulfillment_methods } from "../fulfillment_module/index"
 import er_module from "../pdp_add_to_basket/er_module";
 import { is_in_list } from "../subscribe/init";
 import { checkout_is_valid, make_selection } from "../checkout_delivery_preselection"
@@ -18,13 +19,13 @@ function actions() {
     const status = pdp_add_to_basket.detect_status()
     const anchor_selector = status.isER && !status.isBoth ? "#checkout-combo" : !status.isER && !status.isBoth ? "#add-to-basket" : false
     log({status, anchor_selector})
-    console.warn(status.isER)
     if(this.page_type == "pdp") {
         log("Running PDP Changes")
         price.insert(anchor_selector)
         price.update_price()
         er_module.insert(anchor_selector, status.isER, price.update_price)
         pdp_add_to_basket.add_cta(anchor_selector)
+        move_existing_fulfillment_methods(`.cta_module[test="pah159_2"]`)
     } else if (this.page_type == "checkout") {
         log("Running Checkout Changes")
         make_selection("cnc")
