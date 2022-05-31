@@ -1,5 +1,6 @@
 .pah .pah159_2_loaded,
 body.pah159_2_loaded {
+    & .stock-level-link-easy .add-to-basket__tooltip,
     & [data-module="pdp_offer_text"],
     & [data-module="pdp_price"] {
         display: none !important;
@@ -169,6 +170,25 @@ body.pah159_2_loaded {
                         font-family: "Museo", sans-serif;
                         border-radius: 4px;
                         border: 1px solid var(--pets-brand-purple);
+                    }
+
+                    &.error {
+                        &::after {
+                            content: "Please select a valid frequency";
+                            margin: 1em 0rem 0;
+                            display: block;
+                            color: var(--pets-brand-red);
+                            background-image: url(https://editor-assets.abtasty.com/47297/6295f50d2c14e1653994765.svg);
+                            background-position: left center;
+                            background-repeat: no-repeat;
+                            background-size: 1rem 1rem;
+                            padding-left: 1.5rem;
+                        }
+                        
+                        & #purchase_frequency {
+                            background: #ffc7c7;
+                            border-color: var(--pets-brand-red);
+                        }
                     }
                 }
 

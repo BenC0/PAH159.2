@@ -58,7 +58,35 @@ export function insert(anchor_selector, er_is_available, update_cb) {
         
         el.querySelectorAll("#purchase_frequency").forEach(el => el.addEventListener("change", e => {
             update_og_frequency()
+            let fel = e.currentTarget
+            let frequency_val = fel.value
+            if (parseInt(frequency_val) == -1) {
+                fel.parentNode.classList.add("error")
+            } else {
+                fel.parentNode.classList.remove("error")
+            }
         }))
+
+        let er_check_stock_sel = ".stock-level-btn-easy"
+        if(elementManagement.exists(er_check_stock_sel)) {
+            let er_check_stock_el = elementManagement.get(er_check_stock_sel).pop()
+            er_check_stock_el.addEventListener("click", e => {
+                e.preventDefault()
+                e.stopPropagation()
+                let frequency_el = el.querySelector("#purchase_frequency")
+                let frequency_val = frequency_el.value
+                if (parseInt(frequency_val) == -1) {
+                    frequency_el.parentNode.classList.add("error")
+                    window.scrollTo({
+                        top: el.offsetTop,
+                        left: 0,
+                        behavior: 'smooth'
+                    })
+                } else {
+                    frequency_el.parentNode.classList.remove("error")
+                }
+            })
+        }
     } else {
         el.querySelector(".frequency.er").remove()
     }
