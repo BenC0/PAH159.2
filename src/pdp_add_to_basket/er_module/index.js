@@ -25,6 +25,11 @@ export function active_toggle(e) {
     let ct = e.currentTarget
     elementManagement.getAll(`[test="pah159_2"] .frequency`).forEach(el => el.classList.remove("active"))
     ct.classList.add("active")
+    if (ct.classList.contains("er")) {
+        elementManagement.get(`#checkout-combo label[for="repeat-delivery"]`).pop().click()
+    } else {
+        elementManagement.get(`#checkout-combo label[for="one-time-purchase"]`).pop().click()
+    }
 }
 
 export function update_frequency_options() {

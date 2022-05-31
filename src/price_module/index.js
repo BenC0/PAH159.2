@@ -58,7 +58,6 @@ export function check_and_get_price(selector) {
     log(`Checking and getting ${selector}`)
     if (elementManagement.exists(selector)) {
         let el = elementManagement.get(selector)[0]
-        console.warn(el, elementManagement.get(selector))
         return el.textContent.replace(/\(|\)/g, "").trim()
     } else {
         return ""

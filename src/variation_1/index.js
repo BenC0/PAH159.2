@@ -20,12 +20,15 @@ function actions() {
     const anchor_selector = status.isER && !status.isBoth ? "#checkout-combo" : !status.isER && !status.isBoth ? "#add-to-basket" : false
     log({status, anchor_selector})
     if(this.page_type == "pdp") {
+        // Reset page to OTP
+        if (elementManagement.exists(`[for="one-time-purchase"]`)) {
+            elementManagement.get(`[for="one-time-purchase"]`).pop().click()
+        }
         log("Running PDP Changes")
         price.insert(anchor_selector)
         er_module.insert(anchor_selector, status.isER, price.update_price)
         price.update_price()
         pdp_add_to_basket.add_cta(anchor_selector)
-        move_existing_fulfillment_methods(`.cta_module[test="pah159_2"]`)
     } else if (this.page_type == "checkout") {
         log("Running Checkout Changes")
         make_selection("cnc")

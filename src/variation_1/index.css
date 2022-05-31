@@ -1,27 +1,73 @@
 .pah .pah159_2_loaded,
 body.pah159_2_loaded {
     & [data-module="pdp_offer_text"],
-    & [data-module="add_to_basket"],
-    & [data-module="pdp_price"],
-    & #checkout-combo {
+    & [data-module="pdp_price"] {
         display: none !important;
     }
     
-    & [test="pah159_2"] {
-        --red: #CE2010;
-        --er-brand: #5A2C82;
-        --charcoal: #6C6C70;
-        --pets-brand: #54B947;
-        --pets-brand-dark: #00551C;
-        
+    & #checkout-combo,
+    & [data-module="add_to_basket"] {
+        & #add_to_cart,
+        & .add-to-basket__item,
+        & .checkout-combo__label,
+        & .add-to-basket__content,
+        & .click-collect__button {
+            display: none !important;
+        }
+    }
+    
+    & #checkout-combo,
+    & [test="pah159_2"],
+    & [data-module="click_collect"],
+    & .checkout-combo__item.add-to-basket {
+        --br: 4px;
         --black: #2A2A2A;
         --white: #ffffff;
-        --off-white: #F7F7F7;
         --smoke: #DCDCDC;
-        
-        --br: 4px;
-        
+        --charcoal: #6C6C70;
+        --off-white: #F7F7F7;
+        --pets-brand-red: #CE2010;
+        --pets-brand-green: #54B947;
+        --pets-brand-purple: #5A2C82;
+        --pets-brand-dark-green: #00551C;
+
         background: var(--off-white);
+    }
+
+    & [data-module="click_collect"] {
+        --bottom-offset: 40px;
+        margin-bottom: calc(0px - var(--bottom-offset));
+        padding: 1em 0 calc(1em + var(--bottom-offset));
+
+        & .click-collect__overlay-trigger {
+            background: var(--white);
+        }
+    }
+
+    & .add-to-basket__add-btn.stock-level-btn[data-target="locationPopout"],
+    & .stock-level-btn-easy {
+        color: #00551c;
+        font-size: 14px;
+        font-weight: 500;
+        position: relative;
+        font-family: "Museo";
+        padding: 0 !important;
+    }
+
+
+    & #checkout-combo {
+        margin: 0;
+
+        &,
+        & .checkout-combo__item,
+        & .add-to-basket {
+            border: none;
+            box-shadow: none;
+        }
+        
+        & .checkout-combo__content {
+            transition: none !important;
+        }
     }
 
     & .er_module {
@@ -70,7 +116,7 @@ body.pah159_2_loaded {
                     border-radius: var(--br);
 
                     &[for="purchase_frequency_type-er"] {
-                        color: var(--er-brand);
+                        color: var(--pets-brand-purple);
                     }
 
                     & .icon {
@@ -88,7 +134,7 @@ body.pah159_2_loaded {
                         box-sizing: border-box;
 
                         border-radius: 100%;
-                        background: var(--pets-brand);
+                        background: var(--pets-brand-green);
                         outline: 2px solid var(--charcoal);
                         border:  6px solid var(--white);
                     }
@@ -118,7 +164,7 @@ body.pah159_2_loaded {
                         padding: .8em 1em;
                         font-family: "Museo", sans-serif;
                         border-radius: 4px;
-                        border: 1px solid var(--er-brand);
+                        border: 1px solid var(--pets-brand-purple);
                     }
                 }
 
@@ -272,14 +318,14 @@ body.pah159_2_loaded {
             &[price_type="sale"] {
                 & .now,
                 & .saving {
-                    color: var(--red);
+                    color: var(--pets-brand-red);
                 }
             }
 
             &[price_type="easy-repeat"] {
                 & .now,
                 & .saving {
-                    color: var(--er-brand);
+                    color: var(--pets-brand-purple);
                 }
             }
 
