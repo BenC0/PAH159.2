@@ -44,6 +44,29 @@ export function update_frequency_options() {
     }
 }
 
+export function validate_frequency_options(scroll = false) {
+    let frequency_sel = "#purchase_frequency"
+    if (elementManagement.exists(frequency_sel)) {
+        let frequency_el = elementManagement.get(frequency_sel).pop()
+        let frequency_val = frequency_el.value
+        if (parseInt(frequency_val) == -1) {
+            frequency_el.parentNode.classList.add("error")
+            if (scroll) {
+                window.scrollTo({
+                    top: frequency_el.closest(".er_module").offsetTop,
+                    left: 0,
+                    behavior: 'smooth'
+                })
+            }
+            return false
+        } else {
+            frequency_el.parentNode.classList.remove("error")
+            return true
+        }
+    }
+    return false
+}
+
 export function insert(anchor_selector, er_is_available, update_cb) {
     let el = elementManagement.add(template, "beforeBegin", anchor_selector)
     if (er_is_available) {
@@ -58,13 +81,7 @@ export function insert(anchor_selector, er_is_available, update_cb) {
         
         el.querySelectorAll("#purchase_frequency").forEach(el => el.addEventListener("change", e => {
             update_og_frequency()
-            let fel = e.currentTarget
-            let frequency_val = fel.value
-            if (parseInt(frequency_val) == -1) {
-                fel.parentNode.classList.add("error")
-            } else {
-                fel.parentNode.classList.remove("error")
-            }
+            validate_frequency_options(false)
         }))
 
         let er_check_stock_sel = ".stock-level-btn-easy"
@@ -73,18 +90,7 @@ export function insert(anchor_selector, er_is_available, update_cb) {
             er_check_stock_el.addEventListener("click", e => {
                 e.preventDefault()
                 e.stopPropagation()
-                let frequency_el = el.querySelector("#purchase_frequency")
-                let frequency_val = frequency_el.value
-                if (parseInt(frequency_val) == -1) {
-                    frequency_el.parentNode.classList.add("error")
-                    window.scrollTo({
-                        top: el.offsetTop,
-                        left: 0,
-                        behavior: 'smooth'
-                    })
-                } else {
-                    frequency_el.parentNode.classList.remove("error")
-                }
+                validate_frequency_options(true)
             })
         }
     } else {

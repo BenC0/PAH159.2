@@ -1,4 +1,5 @@
 import { elementManagement, log } from "../norman"
+import { validate_frequency_options } from "./er_module/index"
 
 export function get_qty() {
     let selector = '[name="quantity"]'
@@ -64,10 +65,13 @@ export function click_original_otp_cta() {
 }
 
 export function click_original_er_cta() {
-    let otp_cta_sel = `[for="repeat-delivery"] + .checkout-combo__content #add-to-basket__inner_cc .add-to-basket__btn-row_er #add_to_cart`
-    if (elementManagement.exists(otp_cta_sel)) {
-        let el = elementManagement.get(otp_cta_sel).pop(0)
-        el.click()
+    let isValid = validate_frequency_options(true)
+    if (isValid) {
+        let otp_cta_sel = `[for="repeat-delivery"] + .checkout-combo__content #add-to-basket__inner_cc .add-to-basket__btn-row_er #add_to_cart`
+        if (elementManagement.exists(otp_cta_sel)) {
+            let el = elementManagement.get(otp_cta_sel).pop(0)
+            el.click()
+        }
     }
 }
 
