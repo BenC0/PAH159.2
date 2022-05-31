@@ -44,6 +44,10 @@ body.pah159_2_loaded {
         }
     }
 
+    & .tick-list[data-module="tick_list"] {
+        padding-bottom: 0;
+    }
+
     & .add-to-basket__add-btn.stock-level-btn[data-target="locationPopout"],
     & .stock-level-btn-easy {
         color: #00551c;
