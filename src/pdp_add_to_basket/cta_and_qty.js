@@ -81,6 +81,28 @@ export function handle_qty_operator(e) {
     update_og_qty()
 }
 
+export function validate_product_variant_options(scroll = false) {
+    let variant_sel = `[name="Weight"], [name="Size"]`
+    if (elementManagement.exists(variant_sel)) {
+        let variant_els = elementManagement.get(variant_sel)
+        if (variant_els.filter(el => el.checked).length == 0) {
+            elementManagement.get(`[data-module="selector"]`).pop().classList.add("error")
+            if (scroll) {
+                window.scrollTo({
+                    top: elementManagement.get(`[data-module="selector"]`).pop().offsetTop,
+                    left: 0,
+                    behavior: 'smooth'
+                })
+            }
+            return false
+        } else {
+            elementManagement.get(`[data-module="selector"]`).pop().classList.remove("error")
+            return true
+        }
+    }
+    return false
+}
+
 // Insert the CTA and qty onto the page and add click event listeners for ctas and quantity.
 export function insert_cta_and_qty(anchor_selector, sticky=false, price=false) {
     elementManagement.remove(".pdp_add_to_basket")
@@ -91,7 +113,9 @@ export function insert_cta_and_qty(anchor_selector, sticky=false, price=false) {
     el.querySelector(".pdp_add_to_basket").addEventListener("click", e => {
         log({"msg": "Add to Basket CTA clicked", el})
         update_og_qty()
-        handle_interaction()
+        if(validate_product_variant_options(true)) {
+            handle_interaction()
+        }
     })
     el.querySelector(`[href="#check_stock"]`).addEventListener("click", e => {
         let btn = elementManagement.get(".add-to-basket__add-btn.stock-level-btn")

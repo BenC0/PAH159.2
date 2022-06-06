@@ -1,6 +1,6 @@
 import "./index.css";
 import template from "./template.html"
-import { elementManagement, log } from "../norman"
+import { elementManagement, watchForChange, log } from "../norman"
 
 // Update the original Easy Repeat frequency select element value
 export function update_og_frequency() {
@@ -125,6 +125,23 @@ export function update_frequency_savings() {
     elementManagement.get(".frequency.er .saving").pop().textContent = `${savings.er}`
 }
 
+export function add_cnc_listener() {
+    let er_check_stock_sel = ".stock-level-btn-easy, .stock-level-link-easy"
+    if(elementManagement.exists(er_check_stock_sel)) {
+        let er_check_stock_els = elementManagement.getAll(er_check_stock_sel)
+        console.warn(er_check_stock_els)
+        er_check_stock_els.forEach(er_check_stock_el => {
+            console.warn(er_check_stock_el)
+            er_check_stock_el.addEventListener("click", e => {
+                e.preventDefault()
+                e.stopPropagation()
+                console.warn("Fucking clicked")
+                validate_frequency_options(true)
+            })
+        })
+    }
+}
+
 // Insert the new frequency module and if Easy Repeat is available, update the relevant information and set the click and change event listeners.
 export function insert(anchor_selector, er_is_available, update_cb, is_both) {
     let el = elementManagement.add(template, "beforeBegin", anchor_selector)
@@ -147,15 +164,8 @@ export function insert(anchor_selector, er_is_available, update_cb, is_both) {
             validate_frequency_options(false)
         }))
 
-        let er_check_stock_sel = ".stock-level-btn-easy"
-        if(elementManagement.exists(er_check_stock_sel)) {
-            let er_check_stock_el = elementManagement.get(er_check_stock_sel).pop()
-            er_check_stock_el.addEventListener("click", e => {
-                e.preventDefault()
-                e.stopPropagation()
-                validate_frequency_options(true)
-            })
-        }
+        add_cnc_listener()
+        watchForChange(elementManagement.get("#DeliveryPromiseERDisplayView").pop(), add_cnc_listener, {subtree: true, childList: true}, "er_promise_observer")
     } else {
         el.querySelector(".frequency.er").remove()
     }

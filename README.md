@@ -1,6 +1,5 @@
 # TODO
 1. Multi-size products
-   1. Validation messaging
 2. Reconsider tracking
 3. Radio input selection animation/transition
 

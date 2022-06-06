@@ -52,6 +52,24 @@ body.pah159_2_loaded {
         padding-bottom: 0;
     }
 
+    & section.selector.error  {
+        position: relative;
+
+        &::after {
+            content: "Please select a valid frequency";
+            margin: .5rem 1rem;
+            display: block;
+            color: var(--pets-brand-red);
+            background-image: url(https://editor-assets.abtasty.com/47297/6295f50d2c14e1653994765.svg);
+            background-position: left center;
+            background-repeat: no-repeat;
+            background-size: 1rem 1rem;
+            padding-left: 1.5rem;
+            font-family: "Museo", sans-serif;
+        }
+    }
+    
+    & .stock-level-link-easy[data-target="locationPopout"],
     & .add-to-basket__add-btn.stock-level-btn[data-target="locationPopout"],
     & .stock-level-btn-easy {
         color: #00551c;
