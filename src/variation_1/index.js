@@ -2,7 +2,7 @@ import variationCSS from "./index.css";
 import { log, track, init, config, elementManagement } from "../norman/index"
 import pdp_add_to_basket from "../pdp_add_to_basket/index"
 import detect_page from "../detect_page"
-import er_module from "../pdp_add_to_basket/er_module";
+import er_module from "../er_module";
 import { is_in_list } from "../subscribe/init";
 import { checkout_is_valid, make_selection } from "../checkout_delivery_preselection"
 import price from "../price_module/index"
