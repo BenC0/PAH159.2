@@ -7,6 +7,26 @@ import { is_in_list } from "../subscribe/init";
 import { checkout_is_valid, make_selection } from "../checkout_delivery_preselection"
 import price from "../price_module/index"
 
+function pdp_actions() {
+    // Get the PDP status and determine the anchor selector
+    const status = pdp_add_to_basket.detect_status()
+    const anchor_selector = status.isER && !status.isBoth ? "#checkout-combo" : !status.isER && !status.isBoth ? "#add-to-basket" : false
+    log({status, anchor_selector})
+    // Reset selected product frequency to One Time Purchase
+    if (elementManagement.exists(`[for="one-time-purchase"]`)) {
+        elementManagement.get(`[for="one-time-purchase"]`).pop().click()
+    }
+    log("Running PDP Changes")
+    // Insert new price element before anchor selector 
+    price.insert(anchor_selector)
+    // Insert new frequency/Easy Repeat element before anchor selector 
+    er_module.insert(anchor_selector, status.isER, price.update_price)
+    // Update the price in the new price element.
+    price.update_price()
+    // Insert the new CTA
+    pdp_add_to_basket.add_cta(anchor_selector)
+}
+
 function actions() {
     // Standard logging/tracking
     log({
@@ -19,23 +39,7 @@ function actions() {
 
     // Evaluate page type and run relevant changes
     if(this.page_type == "pdp") {
-        // Get the PDP status and determine the anchor selector
-        const status = pdp_add_to_basket.detect_status()
-        const anchor_selector = status.isER && !status.isBoth ? "#checkout-combo" : !status.isER && !status.isBoth ? "#add-to-basket" : false
-        log({status, anchor_selector})
-        // Reset selected product frequency to One Time Purchase
-        if (elementManagement.exists(`[for="one-time-purchase"]`)) {
-            elementManagement.get(`[for="one-time-purchase"]`).pop().click()
-        }
-        log("Running PDP Changes")
-        // Insert new price element before anchor selector 
-        price.insert(anchor_selector)
-        // Insert new frequency/Easy Repeat element before anchor selector 
-        er_module.insert(anchor_selector, status.isER, price.update_price)
-        // Update the price in the new price element.
-        price.update_price()
-        // Insert the new CTA
-        pdp_add_to_basket.add_cta(anchor_selector)
+        pdp_actions()
     } else if (this.page_type == "checkout") {
         log("Running Checkout Changes")
         // Select Click & Collect on checkout
