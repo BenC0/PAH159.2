@@ -1,6 +1,27 @@
 # TODO
-1. Check stock in local store
-   1. Fixed for ER/OTP mix, needs checking for OTP products
-2. Multi-size products
+1. Multi-size products
+2. Radio input selection animation/transition
 3. Fullfillment variant
-4. Radio input selection animation/transition
+
+
+## Standard Easy Repeat PDP
+https://www.petsathome.com/shop/en/pets/butchers-joints-and-coat-adult-dog-food-loaf-18-x-390g
+### Known Issues
+1. No known issues, everything appears to work as expected. - 7:49am
+
+## Standard One Time Purchase PDP
+https://www.petsathome.com/shop/en/pets/sportspet-high-bounce-rubber-ball-dog-toy
+### Known Issues
+1. Additional Quantity field visible between the Add to Basket CTA and the Check stock in local store link. - Resolved 8:10am
+2. After adding to basket, new cta is shown and original is removed from DOM/Page - Resolved 8:10am
+
+## Sale One Time Purchase PDP
+https://www.petsathome.com/shop/en/pets/pets-at-home-fleece-hooded-cat-bed-black
+### Known Issues
+1. Original CTAs visible - Resolved 8:10am
+
+## Multi-size One Time Purchase PDP
+https://www.petsathome.com/shop/en/pets/squeaker-tennis-ball
+### Known Issues
+1. Original CTAs visible - Resolved 8:10am
+2. Selecting different sizes breaks the experience.

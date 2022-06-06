@@ -7,7 +7,7 @@ body.pah159_2_loaded {
     }
     
     & #checkout-combo,
-    & [data-module="add_to_basket"] {
+    & #add-to-basket {
         & #add_to_cart,
         & .add-to-basket__item,
         & .checkout-combo__label,
@@ -17,6 +17,7 @@ body.pah159_2_loaded {
         }
     }
     
+    & #add-to-basket,
     & #checkout-combo,
     & [test="pah159_2"],
     & [data-module="click_collect"],
@@ -60,6 +61,7 @@ body.pah159_2_loaded {
     }
 
 
+    & #add-to-basket,
     & #checkout-combo {
         margin: 0;
 
