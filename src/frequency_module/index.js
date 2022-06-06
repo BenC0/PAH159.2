@@ -1,6 +1,7 @@
 import { elementManagement } from "../norman"
 import template from "./template.html"
 
+// Update the original Easy Repeat frequency select element value
 export function update_og_frequency() {
     let og_frequency = elementManagement.get("#frequency")
     if (og_frequency.length > 0) {
@@ -11,6 +12,7 @@ export function update_og_frequency() {
     }
 }
 
+// Get the Easy Repeat savings string
 export function get_frequency_savings() {
     let er_saving_el = elementManagement.get("#checkout-combo__offer-text-er").pop()
     let er_saving_txt = er_saving_el.textContent || ""
@@ -20,6 +22,7 @@ export function get_frequency_savings() {
     }
 }
 
+// function to toggle the active frequency, also triggers a click on the original frequency element to toggle the C&C find stores functionality
 export function active_toggle(e) {
     let ct = e.currentTarget
     elementManagement.getAll(`[test="pah159_2"] .frequency`).forEach(el => el.classList.remove("active"))
@@ -31,6 +34,7 @@ export function active_toggle(e) {
     }
 }
 
+// Update the available frequency options using the pre-existing values.
 export function update_frequency_options() {
     let og_frequencies = elementManagement.get("#frequency option")
     if (og_frequencies.length > 0) {
@@ -43,6 +47,7 @@ export function update_frequency_options() {
     }
 }
 
+// Validate the frequency option, this is needed for add to basket and check stock in local store for Easy Repeat.
 export function validate_frequency_options(scroll = false) {
     let frequency_sel = "#purchase_frequency"
     if (elementManagement.exists(frequency_sel)) {
@@ -66,6 +71,7 @@ export function validate_frequency_options(scroll = false) {
     return false
 }
 
+// Insert the new frequency module and if Easy Repeat is available, update the relevant information and set the click and change event listeners.
 export function insert(anchor_selector, er_is_available, update_cb) {
     let el = elementManagement.add(template, "beforeBegin", anchor_selector)
     if (er_is_available) {
