@@ -4,7 +4,7 @@ import pdp_add_to_basket from "../pdp_add_to_basket/index"
 import detect_page from "../detect_page"
 import frequency_module from "../frequency_module";
 import { is_in_list } from "../subscribe/init";
-import { checkout_is_valid, make_selection } from "../checkout_delivery_preselection"
+import { checkout_is_valid, make_selection } from "../checkout_fulfillment_method_preselection"
 import price from "../price_module/index"
 
 function pdp_actions() {
