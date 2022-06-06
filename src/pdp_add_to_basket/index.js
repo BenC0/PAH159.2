@@ -1,5 +1,5 @@
 import detect_status from "./detect_status.js"
-import { add_cta, update_price } from "./add_cta.js"
+import { add_cta, update_price } from "./cta_and_qty.js"
 import { elementManagement } from "../norman/index.js"
 
 export const pdp_add_to_basket = {
