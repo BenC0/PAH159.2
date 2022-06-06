@@ -58,6 +58,9 @@ body.pah159_2_loaded {
         position: relative;
         font-family: "Museo";
         padding: 0 !important;
+        margin-top: -20px;
+        display: block;
+        width: 100%;
     }
 
 
