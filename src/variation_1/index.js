@@ -24,7 +24,7 @@ function pdp_actions() {
     // Update the price in the new price element.
     price.update_price()
     // Insert the new CTA
-    pdp_add_to_basket.add_cta(anchor_selector)
+    pdp_add_to_basket.insert_cta_and_qty(anchor_selector)
 }
 
 function actions() {

@@ -1,9 +1,9 @@
 import detect_status from "./detect_status.js"
-import { add_cta, update_price } from "./cta_and_qty.js"
+import { insert_cta_and_qty, update_price } from "./cta_and_qty.js"
 import { elementManagement } from "../norman/index.js"
 
 export const pdp_add_to_basket = {
-	add_cta,
+	insert_cta_and_qty,
 	detect_status,
 	update_price,
 	isValid: () => {
