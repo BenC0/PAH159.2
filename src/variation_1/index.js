@@ -8,8 +8,8 @@ import { checkout_is_valid, make_selection } from "../checkout_fulfillment_metho
 import price from "../price_module/index"
 import size_module from "../size_module/"
 
-function refresh_pdp() {
-    console.log("Refreshing pdp")
+function refresh_pdp(e) {
+    console.log("Refreshing pdp", e)
 }
 
 function pdp_actions() {
