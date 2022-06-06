@@ -6,6 +6,11 @@ import frequency_module from "../frequency_module";
 import { is_in_list } from "../subscribe/init";
 import { checkout_is_valid, make_selection } from "../checkout_fulfillment_method_preselection"
 import price from "../price_module/index"
+import size_module from "../size_module/"
+
+function refresh_pdp() {
+    console.log("Refreshing pdp")
+}
 
 function pdp_actions() {
     // Get the PDP status and determine the anchor selector
@@ -25,6 +30,8 @@ function pdp_actions() {
     price.update_price()
     // Insert the new CTA
     pdp_add_to_basket.insert_cta_and_qty(anchor_selector)
+
+    size_module.attach_listeners(refresh_pdp)
 }
 
 function actions() {
