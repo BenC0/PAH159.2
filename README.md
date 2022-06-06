@@ -1,9 +1,8 @@
 # TODO
-1. Refactor
+1. Multi-size products
 2. Reconsider tracking
-3. Multi-size products
-4. Radio input selection animation/transition
-5. Fullfillment variant
+3. Radio input selection animation/transition
+4. Fullfillment variant
 
 
 ## Standard Easy Repeat PDP
