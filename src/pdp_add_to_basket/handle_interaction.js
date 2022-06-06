@@ -1,5 +1,5 @@
 import { elementManagement, log } from "../norman"
-import { validate_frequency_options } from "./er_module/index"
+import { validate_frequency_options } from "../frequency_module/index"
 
 export function get_qty() {
     let selector = '[name="quantity"]'

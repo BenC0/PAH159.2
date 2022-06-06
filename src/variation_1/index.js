@@ -2,7 +2,7 @@ import variationCSS from "./index.css";
 import { log, track, init, config, elementManagement } from "../norman/index"
 import pdp_add_to_basket from "../pdp_add_to_basket/index"
 import detect_page from "../detect_page"
-import er_module from "../er_module";
+import frequency_module from "../frequency_module";
 import { is_in_list } from "../subscribe/init";
 import { checkout_is_valid, make_selection } from "../checkout_delivery_preselection"
 import price from "../price_module/index"
@@ -20,7 +20,7 @@ function pdp_actions() {
     // Insert new price element before anchor selector 
     price.insert(anchor_selector)
     // Insert new frequency/Easy Repeat element before anchor selector 
-    er_module.insert(anchor_selector, status.isER, price.update_price)
+    frequency_module.insert(anchor_selector, status.isER, price.update_price)
     // Update the price in the new price element.
     price.update_price()
     // Insert the new CTA

@@ -1,6 +1,6 @@
-import { elementManagement } from "../../norman"
+import { elementManagement } from "../norman"
 import template from "./template.html"
-import price from "../../price_module"
+import price from "../price_module"
 
 export function update_og_frequency() {
     let og_frequency = elementManagement.get("#frequency")
@@ -53,7 +53,7 @@ export function validate_frequency_options(scroll = false) {
             frequency_el.parentNode.classList.add("error")
             if (scroll) {
                 window.scrollTo({
-                    top: frequency_el.closest(".er_module").offsetTop,
+                    top: frequency_el.closest(".frequency_module").offsetTop,
                     left: 0,
                     behavior: 'smooth'
                 })
@@ -98,9 +98,9 @@ export function insert(anchor_selector, er_is_available, update_cb) {
     }
 }
 
-export const er_module = {
+export const frequency_module = {
     insert,
     get_frequency_savings,
 }
 
-export default er_module
+export default frequency_module
