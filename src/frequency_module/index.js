@@ -1,6 +1,5 @@
 import { elementManagement } from "../norman"
 import template from "./template.html"
-import price from "../price_module"
 
 export function update_og_frequency() {
     let og_frequency = elementManagement.get("#frequency")
