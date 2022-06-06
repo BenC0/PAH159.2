@@ -8,12 +8,15 @@ export function fire_size_change_event(e) {
 }
 
 export function attach_listeners(cb) {
-    const inputs = elementManagement.getAll('[name="Size"], [name="Weight"]')
-    inputs.forEach(input => {
-        input.addEventListener("click", fire_size_change_event)
-        input.addEventListener("change", fire_size_change_event)
-    })
-    document.body.addEventListener("size_change", cb)
+    const sels = '[name="Size"], [name="Weight"]'
+    if (elementManagement.exists(sels)) {
+        const inputs = elementManagement.getAll(sels)
+        inputs.forEach(input => {
+            input.addEventListener("click", fire_size_change_event)
+            input.addEventListener("change", fire_size_change_event)
+        })
+        document.body.addEventListener("size_change", cb)
+    }
 }
 
 export const size_module = {

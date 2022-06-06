@@ -29,12 +29,7 @@ function pdp_actions() {
     if (elementManagement.exists(`[for="one-time-purchase"]`)) {
         elementManagement.get(`[for="one-time-purchase"]`).pop().click()
     }
-    if (status.isBoth) {
-        // Insert new price element before anchor selector 
-        price.insert(`[data-module="selector"]`)
-    } else {
-        price.insert(anchor_selector)
-    }
+    price.insert(`[data-module="selector"]`)
     // Insert new frequency/Easy Repeat element before anchor selector
     frequency_module.insert(anchor_selector, status.isER, price.update_price, status.isBoth)
     // Update the price in the new price element.
