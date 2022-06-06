@@ -2,22 +2,26 @@ import "./index.css";
 import {elementManagement, log} from "../norman"
 import price_template from "./price_template.html"
 
+// If element doesn't exist, add it before the anchor selector
 export function insert(anchor_selector) {
     if (!elementManagement.exists(".price_module")) {
         elementManagement.add(price_template, "beforeBegin", anchor_selector)
     }
 }
 
+// Get the easy repeat price
 export function get_er_price() {
     let el = elementManagement.get('#erOfferPrice').pop()
     return el.textContent
 }
 
+// Get the one time purchase price
 export function get_otp_price() {
     let el = elementManagement.get('#otOfferPrice').pop()
     return el.textContent
 }
 
+// Get the currently selected price
 export function get_selected_price() {
     let selected_payment_type = elementManagement.get(`.frequency.active`)
     if(!!selected_payment_type.length) {
@@ -29,6 +33,8 @@ export function get_selected_price() {
         }
     }
 }
+
+// Update the visible price HTML
 export function update_price() {
     let details = get_prices()
     log({details})
@@ -40,6 +46,7 @@ export function update_price() {
     } 
 }
 
+// Rebuild the price element using the price details
 export function build_price(prices) {
     log({
         msg: "Building prices from object",
@@ -55,6 +62,7 @@ export function build_price(prices) {
     </div>`
 }
 
+// Check if an element exists and get the first match's textContent, else return empty string
 export function check_and_get_price(selector) {
     log(`Checking and getting ${selector}`)
     if (elementManagement.exists(selector)) {
@@ -65,6 +73,7 @@ export function check_and_get_price(selector) {
     }
 }
 
+// Get the current product type
 export function get_type() {
     log(`Getting product type`)
     let selected_payment_type = elementManagement.get(`.frequency.active`)
@@ -80,6 +89,7 @@ export function get_type() {
     }
 }
 
+// Get the prices for the current product
 export function get_prices() {
     log(`Getting product prices`)
     let type = get_type()
