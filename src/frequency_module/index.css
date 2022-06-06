@@ -1,0 +1,137 @@
+.pah .pah159_2_loaded,
+body.pah159_2_loaded {
+    & .frequency_module {
+        padding: 1rem;
+        font-size: 16px;
+        font-family: "Museo", sans-serif;
+
+        & .flex-spacer-1 { flex-grow: 1 }
+
+        & .title {
+            font-weight: 400;
+            font-size: 1.25em;
+            font-family: inherit;
+        }
+
+        &, & .frequencies {
+            display: flex;
+            flex-direction: column;
+
+            & .frequency {
+                display: flex;
+                margin: 1rem 0 0;
+                flex-direction: column;
+                border-radius: var(--br);
+
+                &, & * {
+                    transition: all .1s cubic-bezier(0.42, 0, 1, 0.69);
+                }
+                
+                &.active,
+                &:hocus {
+                    box-shadow: 0px 2px 3px rgba(0,0,0,.15),
+                                0px 0px 6px rgba(0,0,0,.15);
+                }
+
+                & label {
+                    width: 100%;
+                    padding: 1em;
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    font-size: 1em;
+                    background: var(--white);
+                    border-radius: var(--br);
+
+                    &[for="purchase_frequency_type-er"] {
+                        color: var(--pets-brand-purple);
+                    }
+
+                    & .icon {
+                        --size: 24px;
+                        margin: 0 .5em;
+                        width: var(--size);
+                        height: var(--size);
+                    }
+
+                    & [name="purchase_frequency_type"] {
+                        --size: 24px;
+                        width: var(--size);
+                        height: var(--size);
+                        margin: 0 12px 0 0;
+                        box-sizing: border-box;
+
+                        border-radius: 100%;
+                        background: var(--pets-brand-green);
+                        outline: 2px solid var(--charcoal);
+                        border:  6px solid var(--white);
+                    }
+                }
+
+                & .frequency_selector {
+                    width: 100%;
+                    max-height: 150px;
+                    overflow: hidden;
+                    padding: 0 1em 1em;
+                    box-sizing: border-box;
+                    background: var(--white);
+                    border-radius: var(--br);
+
+                    & .tagline {
+                        font-size: 1em;
+                        font-weight: 300;
+                        line-height: 1.2;
+                        color: var(--black);
+                        margin-bottom: .8em;
+                    }
+
+                    & #purchase_frequency {
+                        width: 100%;
+                        font-size: 1em;
+                        font-weight: 400;
+                        padding: .8em 1em;
+                        font-family: "Museo", sans-serif;
+                        border-radius: 4px;
+                        border: 1px solid var(--pets-brand-purple);
+                    }
+
+                    &.error {
+                        &::after {
+                            content: "Please select a valid frequency";
+                            margin: 1em 0rem 0;
+                            display: block;
+                            color: var(--pets-brand-red);
+                            background-image: url(https://editor-assets.abtasty.com/47297/6295f50d2c14e1653994765.svg);
+                            background-position: left center;
+                            background-repeat: no-repeat;
+                            background-size: 1rem 1rem;
+                            padding-left: 1.5rem;
+                        }
+                        
+                        & #purchase_frequency {
+                            background: #ffc7c7;
+                            border-color: var(--pets-brand-red);
+                        }
+                    }
+                }
+
+                & .saving {
+                    justify-self: flex-end;
+                }
+
+                &:not(.active) {
+                    & .frequency_selector {
+                        padding: 0 1em;
+                        max-height: 0;
+                    }
+
+                    & [name="purchase_frequency_type"] {
+                        background: var(--white);
+                    }
+                }
+            }
+        }
+    }
+}

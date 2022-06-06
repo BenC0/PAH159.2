@@ -1,5 +1,6 @@
-import { elementManagement } from "../norman"
+import "./index.css";
 import template from "./template.html"
+import { elementManagement } from "../norman"
 
 // Update the original Easy Repeat frequency select element value
 export function update_og_frequency() {
