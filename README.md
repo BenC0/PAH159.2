@@ -1,8 +1,8 @@
 # TODO
 1. Multi-size products
+   1. Validation messaging
 2. Reconsider tracking
 3. Radio input selection animation/transition
-4. Fullfillment variant
 
 
 ## Standard Easy Repeat PDP

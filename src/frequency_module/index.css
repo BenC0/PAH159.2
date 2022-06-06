@@ -33,6 +33,22 @@ body.pah159_2_loaded {
                                 0px 0px 6px rgba(0,0,0,.15);
                 }
 
+                &.inactive {
+                    display: none;
+                }
+
+                &.includes_er_size_messaging label {
+                    flex-wrap: wrap;
+
+                    & .er_size_messaging {
+                        width: 100%;
+                        flex-grow: 1;
+                        font-weight: 600;
+                        margin-top: 0.3em;
+                        padding-left: 36px;
+                    }
+                }
+
                 & label {
                     width: 100%;
                     padding: 1em;

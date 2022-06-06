@@ -96,7 +96,7 @@ export function get_prices() {
     let selectors = {
         now: "#otOfferPrice, #offerPrice",
         was: ".pdp-price__was",
-        saving: ".pdp-offer-text__inner, .pdp-price__you-save",
+        saving: ".pdp-offer-text__inner, .pdp-price__you-save, #checkout-combo__offer-text-er",
         normalised: "#otOfferPrice + .pdp-price__weight, #offerPrice + .pdp-price__weight",
     } 
     if (type == "easy-repeat") {
@@ -106,12 +106,19 @@ export function get_prices() {
             saving: "#checkout-combo__offer-text-er",
             normalised: "#erOfferppu",
         } 
-    } 
+    }
+
+    let saving = check_and_get_price(selectors.saving)
+    console.warn(saving)
+    if (!!saving.match(/null/g)) {
+        saving = ""
+    }
+
     let prices = {
         type,
         now: check_and_get_price(selectors.now),
         was: check_and_get_price(selectors.was).replace(/Was /g, ""),
-        saving: check_and_get_price(selectors.saving),
+        saving,
         normalised: check_and_get_price(selectors.normalised),
     }
     return prices

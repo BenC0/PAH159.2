@@ -1,8 +1,10 @@
 .pah .pah159_2_loaded,
 body.pah159_2_loaded {
-    & .stock-level-link-easy .add-to-basket__tooltip,
+    & #pdpertag,
+    & #pdperprice,
+    & [data-module="pdp_price"], 
     & [data-module="pdp_offer_text"],
-    & [data-module="pdp_price"] {
+    & .stock-level-link-easy .add-to-basket__tooltip {
         display: none !important;
     }
     

@@ -1,6 +1,6 @@
 import "./index.css";
 import template from "./template.html"
-import { elementManagement } from "../norman"
+import { elementManagement, log } from "../norman"
 
 // Update the original Easy Repeat frequency select element value
 export function update_og_frequency() {
@@ -72,10 +72,58 @@ export function validate_frequency_options(scroll = false) {
     return false
 }
 
+export function add_er_size_messaging(el, target) {
+    elementManagement.add(`<p class="er_size_messaging">${el.textContent}</p>`, "beforeEnd", target.querySelector("label"))
+}
+
+export function update_frequency_availability() {
+    let selector = "#add-to-basket, #checkout-combo"
+    if (elementManagement.exists(selector)) {
+        let options = elementManagement.getAll(selector)
+        let visible_options = options.filter(el => el.style.display != "none")
+        let hidden_options = options.filter(el => el.style.display == "none")
+        log({
+            options,
+            visible_options,
+            hidden_options
+        }, false)
+        if (visible_options.length == 0) {
+            // show all frequencies with additional "ER available on X" messaging if needed
+            if (elementManagement.exists("#pdpertag #erAvailTag") && !elementManagement.exists(".includes_er_size_messaging")) {
+                elementManagement.getAll(".frequency.er").forEach( el => {
+                    add_er_size_messaging(elementManagement.get("#pdpertag #erAvailTag").pop(), el)
+                    el.classList.add("includes_er_size_messaging")
+                })
+            }
+            elementManagement.getAll(".frequency").forEach( el => {
+                el.classList.remove("inactive")
+            })
+        } else {
+            // show all frequencies within visible option   
+            let visible_option = visible_options[0]
+            if (visible_option.classList.contains("checkout-combo")) {
+                // all options available
+                elementManagement.getAll(".frequency").forEach( el => {
+                    el.classList.remove("inactive")
+                })
+            } else {
+                // only OTP avaialble
+                elementManagement.get(".frequency.otp").pop().classList.remove("inactive")
+                elementManagement.get(".frequency.er").pop().classList.add("inactive")
+            }
+        }
+    }
+}
+
 // Insert the new frequency module and if Easy Repeat is available, update the relevant information and set the click and change event listeners.
-export function insert(anchor_selector, er_is_available, update_cb) {
+export function insert(anchor_selector, er_is_available, update_cb, is_both) {
     let el = elementManagement.add(template, "beforeBegin", anchor_selector)
+    
     if (er_is_available) {
+        if (is_both) {
+            update_frequency_availability()
+        }
+
         let savings = get_frequency_savings()
         el.querySelector(".frequency.er .saving").textContent = `${savings.er}`
         update_frequency_options()
@@ -107,6 +155,7 @@ export function insert(anchor_selector, er_is_available, update_cb) {
 export const frequency_module = {
     insert,
     get_frequency_savings,
+    update_frequency_availability,
 }
 
 export default frequency_module

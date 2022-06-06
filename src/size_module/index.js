@@ -8,7 +8,7 @@ export function fire_size_change_event(e) {
 }
 
 export function attach_listeners(cb) {
-    const inputs = elementManagement.getAll('[name="Size"]')
+    const inputs = elementManagement.getAll('[name="Size"], [name="Weight"]')
     inputs.forEach(input => {
         input.addEventListener("click", fire_size_change_event)
         input.addEventListener("change", fire_size_change_event)

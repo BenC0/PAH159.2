@@ -8,30 +8,35 @@ import { checkout_is_valid, make_selection } from "../checkout_fulfillment_metho
 import price from "../price_module/index"
 import size_module from "../size_module/"
 
-function refresh_pdp(e) {
-    console.log("Refreshing pdp", e)
+function refresh_pdp(event) {
+    log({ "msg": "Refreshing pdp", event})
     // Update price
     price.update_price()
     // Update available frequencies
-    // Reset quantity?
-    // Update CTA
+    frequency_module.update_frequency_availability()
     // Ensure check stock functionality remains
 }
 
 function pdp_actions() {
     // Get the PDP status and determine the anchor selector
     const status = pdp_add_to_basket.detect_status()
-    const anchor_selector = status.isER && !status.isBoth ? "#checkout-combo" : !status.isER && !status.isBoth ? "#add-to-basket" : false
-    log({status, anchor_selector})
+    let anchor_selector = status.isER && !status.isBoth ? "#checkout-combo" : !status.isER && !status.isBoth ? "#add-to-basket" : false
+    if (status.isBoth) {
+        anchor_selector = "#add-to-basket"
+    }
+    log({msg: "Running PDP Changes", status, anchor_selector})
     // Reset selected product frequency to One Time Purchase
     if (elementManagement.exists(`[for="one-time-purchase"]`)) {
         elementManagement.get(`[for="one-time-purchase"]`).pop().click()
     }
-    log("Running PDP Changes")
-    // Insert new price element before anchor selector 
-    price.insert(anchor_selector)
-    // Insert new frequency/Easy Repeat element before anchor selector 
-    frequency_module.insert(anchor_selector, status.isER, price.update_price)
+    if (status.isBoth) {
+        // Insert new price element before anchor selector 
+        price.insert(`[data-module="selector"]`)
+    } else {
+        price.insert(anchor_selector)
+    }
+    // Insert new frequency/Easy Repeat element before anchor selector
+    frequency_module.insert(anchor_selector, status.isER, price.update_price, status.isBoth)
     // Update the price in the new price element.
     price.update_price()
     // Insert the new CTA
