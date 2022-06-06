@@ -10,6 +10,12 @@ import size_module from "../size_module/"
 
 function refresh_pdp(e) {
     console.log("Refreshing pdp", e)
+    // Update price
+    price.update_price()
+    // Update available frequencies
+    // Reset quantity?
+    // Update CTA
+    // Ensure check stock functionality remains
 }
 
 function pdp_actions() {
