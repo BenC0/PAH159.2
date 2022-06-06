@@ -17,7 +17,11 @@ export function update_og_frequency() {
 export function get_frequency_savings() {
     let er_saving_el = elementManagement.get("#checkout-combo__offer-text-er").pop()
     let er_saving_txt = er_saving_el.textContent || ""
-    let er_saving_amount = `Save ${er_saving_txt.match(/[0-9]*%/g)}` || ""
+    let txt = er_saving_txt.match(/[0-9]*%/g)
+    let er_saving_amount = ""
+    if (!!txt) {
+        er_saving_amount = `Save ${txt}`
+    }
     return {
         er: er_saving_amount
     }
@@ -106,6 +110,7 @@ export function update_frequency_availability() {
                 elementManagement.getAll(".frequency").forEach( el => {
                     el.classList.remove("inactive")
                 })
+                update_frequency_savings()
             } else {
                 // only OTP avaialble
                 elementManagement.get(".frequency.otp").pop().classList.remove("inactive")
@@ -113,6 +118,11 @@ export function update_frequency_availability() {
             }
         }
     }
+}
+
+export function update_frequency_savings() {
+    let savings = get_frequency_savings()
+    elementManagement.get(".frequency.er .saving").pop().textContent = `${savings.er}`
 }
 
 // Insert the new frequency module and if Easy Repeat is available, update the relevant information and set the click and change event listeners.
@@ -124,8 +134,7 @@ export function insert(anchor_selector, er_is_available, update_cb, is_both) {
             update_frequency_availability()
         }
 
-        let savings = get_frequency_savings()
-        el.querySelector(".frequency.er .saving").textContent = `${savings.er}`
+        update_frequency_savings()
         update_frequency_options()
         
         el.querySelectorAll(".frequency").forEach(el => el.addEventListener("click", e => {

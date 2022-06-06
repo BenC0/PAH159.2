@@ -93,6 +93,7 @@ export function get_type() {
 export function get_prices() {
     log(`Getting product prices`)
     let type = get_type()
+    log(`Product type is ${type}`)
     let selectors = {
         now: "#otOfferPrice, #offerPrice",
         was: ".pdp-price__was",
@@ -108,17 +109,11 @@ export function get_prices() {
         } 
     }
 
-    let saving = check_and_get_price(selectors.saving)
-    console.warn(saving)
-    if (!!saving.match(/null/g)) {
-        saving = ""
-    }
-
     let prices = {
         type,
         now: check_and_get_price(selectors.now),
         was: check_and_get_price(selectors.was).replace(/Was /g, ""),
-        saving,
+        saving: check_and_get_price(selectors.saving),
         normalised: check_and_get_price(selectors.normalised),
     }
     return prices

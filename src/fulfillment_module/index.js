@@ -6,7 +6,6 @@ export function add_new_fulfillment_methods(anchor_selector) {
 }
 
 export function update_fulfillment_methods() {
-    console.warn("Fuck yeah! Changes I wanna see! Woo!")
     let dp_msg_selector = ".checkout-combo__content--OTP .deliveryPromise"
 
     if(elementManagement.exists(dp_msg_selector)) {
