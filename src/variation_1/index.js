@@ -8,32 +8,42 @@ import { checkout_is_valid, make_selection } from "../checkout_delivery_preselec
 import price from "../price_module/index"
 
 function actions() {
+    // Standard logging/tracking
     log({
         "Variation": this.name,
         "Page Type": this.page_type
     })
     track(`${this.name} Loaded`, `Loaded`, true)
+    // Additional non-impression event with page type
     track(this.name, `${this.name}: ${this.page_type} Loaded`, false)
 
-    const status = pdp_add_to_basket.detect_status()
-    const anchor_selector = status.isER && !status.isBoth ? "#checkout-combo" : !status.isER && !status.isBoth ? "#add-to-basket" : false
-    log({status, anchor_selector})
+    // Evaluate page type and run relevant changes
     if(this.page_type == "pdp") {
-        // Reset page to OTP
+        // Get the PDP status and determine the anchor selector
+        const status = pdp_add_to_basket.detect_status()
+        const anchor_selector = status.isER && !status.isBoth ? "#checkout-combo" : !status.isER && !status.isBoth ? "#add-to-basket" : false
+        log({status, anchor_selector})
+        // Reset selected product frequency to One Time Purchase
         if (elementManagement.exists(`[for="one-time-purchase"]`)) {
             elementManagement.get(`[for="one-time-purchase"]`).pop().click()
         }
         log("Running PDP Changes")
+        // Insert new price element before anchor selector 
         price.insert(anchor_selector)
+        // Insert new frequency/Easy Repeat element before anchor selector 
         er_module.insert(anchor_selector, status.isER, price.update_price)
+        // Update the price in the new price element.
         price.update_price()
+        // Insert the new CTA
         pdp_add_to_basket.add_cta(anchor_selector)
     } else if (this.page_type == "checkout") {
         log("Running Checkout Changes")
+        // Select Click & Collect on checkout
         make_selection("cnc")
     }
 }
 
+// Declare Variant details for Norman.
 const Variant = {
     name: "Variation 1",
     css: variationCSS,
@@ -41,14 +51,20 @@ const Variant = {
     conditions: () => {
         let conditions = []
         let page = detect_page()
+        // Dynamic conditions based on page type.
         if(page == "pdp") {
+            // Check PDP is valid based on status
             conditions.push(pdp_add_to_basket.isValid())
+            // Check PDP is not eligible for the PDP Subscription Test (PAH152)
             conditions.push(!is_in_list())
         } else if (page == "checkout") {
+            // Confirm both fullfillment methods are available
             conditions.push(checkout_is_valid())
         } else {
+            // Poller will return false if page type isn't checkout or PDP
             conditions.push(false)
         }
+        // Also confirm has not already ran.
         conditions.push(!elementManagement.exists('[test="pah159_2"]'))
         log({message: `Polling: Conditions`, conditions})
         let result = conditions.every(a => a)
@@ -57,11 +73,13 @@ const Variant = {
     },
     actions,
     fallback: _ => {
+        // If polling fails and threshold is met, track "not loaded" event with pathname.
         log(`Firing not loaded event`)
         let page = window.location.pathname
         track(`${Variant.name} Not loaded`, `${Variant.name}: ${page} Not loaded`, false)
     }
 }
 
+// Initialise and run the variant with Norman
 let nVariant = init(Variant)
 nVariant.run()
