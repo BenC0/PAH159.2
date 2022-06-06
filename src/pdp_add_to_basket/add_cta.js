@@ -3,16 +3,19 @@ import detect_status from "./detect_status"
 import cta_html from "./cta.html"
 import handle_interaction from "./handle_interaction"
 
+// Get the easy repeat price
 export function get_er_price() {
     let el = elementManagement.get('#erOfferPrice').pop()
     return el.textContent
 }
 
+// Get the one time purchase price
 export function get_otp_price() {
     let el = elementManagement.get('#otOfferPrice').pop()
     return el.textContent
 }
 
+// Get the currently selected price
 export function get_selected_price() {
     let selected_payment_type = elementManagement.get(`.frequency.active`)
     if(!!selected_payment_type.length) {
@@ -25,6 +28,7 @@ export function get_selected_price() {
     }
 }
 
+// Update the price shwon on the CTA
 export function update_price() {
     let selected_price = get_selected_price()
     let el = elementManagement.get(`[test="pah159_2"] .pdp_add_to_basket .price`)
@@ -34,6 +38,7 @@ export function update_price() {
     } 
 }
 
+// Increase the quantity
 export function increment_qty() {
     let el = elementManagement.get(`#prod_qty_input`)
     if(el.length > 0) {
@@ -42,6 +47,7 @@ export function increment_qty() {
     }
 }
 
+// Decrease the quantity
 export function decrement_qty() {
     let el = elementManagement.get(`#prod_qty_input`)
     if(el.length > 0) {
@@ -52,6 +58,7 @@ export function decrement_qty() {
     }
 }
 
+// Update the original quantity element, both easy repeat and one-time purchase.
 export function update_og_qty() {
     log("Updating OG Price")
     let otp_qty_sels = `.checkout-combo__content--OTP .add-to-basket__inner:not([style*="display: none"]) #oneTimeQty, #quantity_nonsqp, #quantity_easy-repeat`
@@ -63,6 +70,7 @@ export function update_og_qty() {
     }
 }
 
+// Handle interaction with quantity operator elements.
 export function handle_qty_operator(e) {
     let ct = e.target
     if (ct.classList.contains("number_input_decrease")) {
@@ -73,6 +81,7 @@ export function handle_qty_operator(e) {
     update_og_qty()
 }
 
+// Insert the CTA onto the page
 export function add_cta(anchor_selector, sticky=false, price=false) {
     elementManagement.remove(".pdp_add_to_basket")
     let el = elementManagement.add(cta_html, "beforeBegin", anchor_selector)
