@@ -1,3 +1,4 @@
+import "./index.css";
 import {elementManagement, log} from "../norman"
 import price_template from "./price_template.html"
 
