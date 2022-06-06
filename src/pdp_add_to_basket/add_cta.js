@@ -81,7 +81,7 @@ export function handle_qty_operator(e) {
     update_og_qty()
 }
 
-// Insert the CTA onto the page
+// Insert the CTA onto the page and add click event listeners for ctas and quantity.
 export function add_cta(anchor_selector, sticky=false, price=false) {
     elementManagement.remove(".pdp_add_to_basket")
     let el = elementManagement.add(cta_html, "beforeBegin", anchor_selector)
