@@ -79,9 +79,6 @@ export function validate_frequency_options(scroll = false) {
 }
 
 export function add_er_size_messaging(el, target) {
-    while (el.textContent.match(/up to/g).length > 1) {
-        el.textContent = el.textContent.replace(/up to up to/g, "up to")
-    }
     elementManagement.add(`<p class="er_size_messaging">${el.textContent}</p>`, "beforeEnd", target.querySelector("label"))
 }
 
