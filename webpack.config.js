@@ -7,6 +7,7 @@ const production_folder = "./prod/"
 
 const config = {
 	entry: {
+		control: `${build_folder}variation_1/index.js`,
 		variation_1: `${build_folder}variation_1/index.js`,
 	},
 	output: {
