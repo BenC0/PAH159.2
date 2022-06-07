@@ -1,7 +1,5 @@
 # TODO
-1. Implement tracking
-2. Amend select CSS `appearance` 
-3. Radio input selection animation/transition
+1. Radio input selection animation/transition
 
 
 ## Standard Easy Repeat PDP
