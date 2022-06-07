@@ -127,6 +127,7 @@ body.pah159_2_loaded {
                         }
                         
                         & #purchase_frequency {
+                            appearance: revert;
                             background: #ffc7c7;
                             border-color: var(--pets-brand-red);
                         }
