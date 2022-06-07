@@ -56,7 +56,7 @@ body.pah159_2_loaded {
         position: relative;
 
         &::after {
-            content: "Please select a valid frequency";
+            content: "Please select a valid option";
             margin: .5rem 1rem;
             display: block;
             color: var(--pets-brand-red);

@@ -46,16 +46,15 @@ function actions() {
         "Variation": this.name,
         "Page Type": this.page_type
     })
-    track(`${this.name} Loaded`, `Loaded`, true)
-    // Additional non-impression event with page type
-    track(this.name, `${this.name}: ${this.page_type} Loaded`, false)
 
     // Evaluate page type and run relevant changes
     if(this.page_type == "pdp") {
+        track(`${this.name} Loaded`, `Loaded`, true)
         pdp_actions()
     } else if (this.page_type == "checkout") {
         log("Running Checkout Changes")
         // Select Click & Collect on checkout
+        track(`${this.name} Checkout Loaded`, `Loaded`, false)
         make_selection("cnc")
     }
 }

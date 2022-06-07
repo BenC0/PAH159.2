@@ -1,6 +1,6 @@
 # TODO
-1. Multi-size products
-2. Reconsider tracking
+1. Implement tracking
+2. Amend select CSS `appearance` 
 3. Radio input selection animation/transition
 
 
