@@ -1,4 +1,4 @@
-import { elementManagement, log, norman } from "../norman/index"
+import { elementManagement, log, norman, track } from "../norman/index"
 import detect_status from "./detect_status"
 import cta_html from "./cta.html"
 import handle_interaction from "./handle_interaction"
@@ -43,7 +43,8 @@ export function increment_qty() {
     let el = elementManagement.get(`#prod_qty_input`)
     if(el.length > 0) {
         el = el.pop()
-            el.value = parseInt(el.value) + 1
+        el.value = parseInt(el.value) + 1
+        track(`Quantity Increased`, `Increase to ${el.value}`, false)
     }
 }
 
@@ -54,6 +55,7 @@ export function decrement_qty() {
         el = el.pop()
         if (parseInt(el.value) > 1) {
             el.value = parseInt(el.value) - 1
+            track(`Quantity Decreased`, `Decrease to ${el.value}`, false)
         }
     }
 }
@@ -127,6 +129,10 @@ export function insert_cta_and_qty(anchor_selector, sticky=false, price=false) {
     el.querySelectorAll(".number_input_container .operator").forEach(el => el.addEventListener("click", e => {
         log({"msg": "Qty Increment clicked", el})
         handle_qty_operator(e)
+    }))
+    
+    el.querySelectorAll(".number_input_container .operator").forEach(el => el.addEventListener("change", e => {
+        track(`Quantity Changed`, `Quantity changed to ${el.currentTarget.value}`, false)
     }))
 
     if(sticky) {

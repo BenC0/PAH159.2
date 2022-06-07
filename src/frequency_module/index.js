@@ -1,6 +1,6 @@
 import "./index.css";
 import template from "./template.html"
-import { elementManagement, watchForChange, log } from "../norman"
+import { elementManagement, watchForChange, track, log } from "../norman"
 
 // Update the original Easy Repeat frequency select element value
 export function update_og_frequency() {
@@ -34,8 +34,10 @@ export function active_toggle(e) {
     ct.classList.add("active")
     if (ct.classList.contains("er")) {
         elementManagement.get(`#checkout-combo label[for="repeat-delivery"]`).pop().click()
+        track(`Purchase Frequency Type Changed`, `Easy Repeat`, false)
     } else {
         elementManagement.get(`#checkout-combo label[for="one-time-purchase"]`).pop().click()
+        track(`Purchase Frequency Type Changed`, `One Time Purchase`, false)
     }
 }
 
@@ -129,13 +131,10 @@ export function add_cnc_listener() {
     let er_check_stock_sel = ".stock-level-btn-easy, .stock-level-link-easy"
     if(elementManagement.exists(er_check_stock_sel)) {
         let er_check_stock_els = elementManagement.getAll(er_check_stock_sel)
-        console.warn(er_check_stock_els)
         er_check_stock_els.forEach(er_check_stock_el => {
-            console.warn(er_check_stock_el)
             er_check_stock_el.addEventListener("click", e => {
                 e.preventDefault()
                 e.stopPropagation()
-                console.warn("Fucking clicked")
                 validate_frequency_options(true)
             })
         })
@@ -154,12 +153,18 @@ export function insert(anchor_selector, er_is_available, update_cb, is_both) {
         update_frequency_savings()
         update_frequency_options()
         
-        el.querySelectorAll(".frequency").forEach(el => el.addEventListener("click", e => {
-            active_toggle(e)
-            update_cb()
-        }))
+        el.querySelectorAll(".frequency").forEach(el => {
+            el.addEventListener("click", e => {
+                if(!e.currentTarget.classList.contains("active")) {
+                    active_toggle(e)
+                    update_cb()
+                }
+            })
+        })
         
         el.querySelectorAll("#purchase_frequency").forEach(el => el.addEventListener("change", e => {
+            let v = e.currentTarget.value || "-1"
+            track(`Easy Repeat Frequency Changed to ${v}`, v, false)
             update_og_frequency()
             validate_frequency_options(false)
         }))

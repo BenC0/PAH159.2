@@ -87,12 +87,7 @@ const Variant = {
         return result
     },
     actions,
-    fallback: _ => {
-        // If polling fails and threshold is met, track "not loaded" event with pathname.
-        log(`Firing not loaded event`)
-        let page = window.location.pathname
-        track(`${Variant.name} Not loaded`, `${Variant.name}: ${page} Not loaded`, false)
-    }
+    fallback: null
 }
 
 // Initialise and run the variant with Norman

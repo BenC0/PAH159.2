@@ -42,7 +42,6 @@ export function handle_otp_interaction() {
     let qty = parseInt(qty_added_el.value)
         
     GoogleTagShoppingCart.addToCart(cncProductPartNumber, qty);
-    console.warn(qty)
 
     let qty_str = `Subtotal (${qty} item${qty > 1 ? "s": ""})`
     let single_price = get_single_price()
