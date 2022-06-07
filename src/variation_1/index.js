@@ -14,7 +14,6 @@ function refresh_pdp(event) {
     price.update_price()
     // Update available frequencies
     frequency_module.update_frequency_availability()
-    // Ensure check stock functionality remains
 }
 
 function pdp_actions() {
