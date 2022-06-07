@@ -56,8 +56,9 @@ export function handle_otp_interaction() {
 
 export function click_original_otp_cta() {
     let otp_cta_sel = `[for="one-time-purchase"] + .checkout-combo__content #add_to_cart, .add-to-basket__btn-row_otp #add_to_cart`
+    console.warn({otp_cta_sel, el: elementManagement.get(otp_cta_sel)})
     if (elementManagement.exists(otp_cta_sel)) {
-        let el = elementManagement.get(otp_cta_sel).pop()
+        let el = elementManagement.get(otp_cta_sel).pop(0)
         log("Clicking original otp CTA")
         el.click()
     }
@@ -75,9 +76,12 @@ export function click_original_er_cta() {
 }
 
 export default function handle_interaction() {
+    console.log("handle_interaction called")
     let selected_payment_type = elementManagement.get(`.frequency.active`)
+    console.log("handle_interaction selected_payment_type", selected_payment_type)
     if(!!selected_payment_type.length) {
         selected_payment_type = selected_payment_type.pop()
+        console.log("handle_interaction is_Er", selected_payment_type.classList.contains("er"))
         if(selected_payment_type.classList.contains("er")) {
             // Do the ER thing
             click_original_er_cta()

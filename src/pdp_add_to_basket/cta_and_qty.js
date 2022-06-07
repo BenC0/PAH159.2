@@ -102,7 +102,7 @@ export function validate_product_variant_options(scroll = false) {
             return true
         }
     }
-    return false
+    return true
 }
 
 // Insert the CTA and qty onto the page and add click event listeners for ctas and quantity.
