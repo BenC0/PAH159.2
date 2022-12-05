@@ -26,14 +26,21 @@ body.pah159_2_loaded {
                 }
             }
 
-            &[price_type="sale"] {
+            &[price_type*="sale"] {
+                & .now,
+                & .saving {
+                    color: var(--pets-brand-red);
+                }
+            }
+            
+            &[saving="true"][price_type*="one-time-purchase"] {
                 & .now,
                 & .saving {
                     color: var(--pets-brand-red);
                 }
             }
 
-            &[price_type="easy-repeat"] {
+            &[price_type*="easy-repeat"] {
                 & .now,
                 & .saving {
                     color: var(--pets-brand-purple);

@@ -52,11 +52,11 @@ export function build_price(prices) {
         msg: "Building prices from object",
         prices
     })
-    return `<div class="pricing" price_type="${prices.type}">
+    return `<div class="pricing" price_type="${prices.type}" saving="${prices.saving.length !== 0}">
         <p class="saving">${prices.saving}</p>
         <div class="main_price">
             <p class="now">${prices.now}</p>
-            <p class="was">${prices.was}</p>
+            <p class="was">${prices.was.indexOf(" - ") == -1 ? prices.was : ""}</p>
         </div>
         <p class="normalised">${prices.normalised}</p>
     </div>`
@@ -64,6 +64,9 @@ export function build_price(prices) {
 
 // Check if an element exists and get the first match's textContent, else return empty string
 export function check_and_get_price(selector) {
+    if (selector === "") {
+        return ""
+    }
     log(`Checking and getting ${selector}`)
     if (elementManagement.exists(selector)) {
         let el = elementManagement.get(selector)[0]
@@ -79,10 +82,16 @@ export function get_type() {
     let selected_payment_type = elementManagement.get(`.frequency.active`)
     if(!!selected_payment_type.length) {
         selected_payment_type = selected_payment_type.pop()
-        if(selected_payment_type.classList.contains("er")) {
+        if(selected_payment_type.classList.contains("er") && !elementManagement.exists(`#pdpertag`)) {
             return "easy-repeat"
         } else if (elementManagement.exists(`.pdp-offer-text__inner`)) {
             return "sale"
+        } else if (elementManagement.exists(`#pdpertag`)) {
+            if(selected_payment_type.classList.contains("er")) {
+                return "multi-size-easy-repeat"
+            } else {
+                return "multi-size-one-time-purchase"
+            }
         } else {
             return "one-time-purchase"
         }
@@ -93,7 +102,7 @@ export function get_type() {
 export function get_prices() {
     log(`Getting product prices`)
     let type = get_type()
-    log(`Product type is ${type}`)
+    log(`Product type is ${type}`, true)
     let selectors = {
         now: "#otOfferPrice, #offerPrice",
         was: ".pdp-price__was",
@@ -106,6 +115,20 @@ export function get_prices() {
             was: "#otOfferPrice",
             saving: "#checkout-combo__offer-text-er",
             normalised: "#erOfferppu",
+        } 
+    } else if (type == "multi-size-easy-repeat") {
+        selectors = {
+            now: "#erOfferPrice",
+            was: ".pdp-price__was",
+            saving: ".pdp-offer-text__inner, .pdp-price__you-save, #checkout-combo__offer-text-er",
+            saving: "#checkout-combo__offer-text-er",
+        } 
+    } else if (type == "multi-size-one-time-purchase") {
+        selectors = {
+            now: "#otOfferPrice, #offerPrice",
+            was: ".pdp-price__was",
+            saving: ".pdp-offer-text__inner, .pdp-price__you-save, #checkout-combo__offer-text-er",
+            normalised: "#otOfferPrice + .pdp-price__weight, #offerPrice + .pdp-price__weight",
         } 
     }
 

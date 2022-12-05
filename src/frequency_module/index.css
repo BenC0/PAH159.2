@@ -79,10 +79,11 @@ body.pah159_2_loaded {
                         margin: 0 12px 0 0;
                         box-sizing: border-box;
 
-                        border-radius: 100%;
-                        background: var(--pets-brand-green);
-                        outline: 2px solid var(--charcoal);
+                        display: block;
+                        border-radius: var(--size);
                         border:  6px solid var(--white);
+                        background: var(--pets-brand-green);
+                        box-shadow: 0px 0px 0px 2px var(--charcoal);
                     }
                 }
 
@@ -103,34 +104,57 @@ body.pah159_2_loaded {
                         margin-bottom: .8em;
                     }
 
+                    & .select_container {
+                        position: relative;
+
+                        &::before {
+                            top: 18px;
+                            right: 1em;
+                            content: "";
+                            width: 24px;
+                            height: 10px;
+                            z-index: 100;
+                            position: absolute;
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            background-image: url(https://editor-assets.abtasty.com/47297/62a0ac613bab31654697057.svg);
+                        }
+
+                        &.error {
+                            &::after {
+                                content: "Please select a valid frequency";
+                                margin: 1em 0rem 0;
+                                display: block;
+                                color: var(--pets-brand-red);
+                                background-image: url(https://editor-assets.abtasty.com/47297/6295f50d2c14e1653994765.svg);
+                                background-position: left center;
+                                background-repeat: no-repeat;
+                                background-size: 1rem 1rem;
+                                padding-left: 1.5rem;
+                            }
+                            
+                            & #purchase_frequency {
+                                background: #ffc7c7;
+                                border-color: var(--pets-brand-red);
+                            }
+                        }
+                    }
+
                     & #purchase_frequency {
                         width: 100%;
                         font-size: 1em;
                         font-weight: 400;
                         padding: .8em 1em;
+                        min-height: 48px;
                         font-family: "Museo", sans-serif;
+
+                        color: var(--black);
                         border-radius: 4px;
                         border: 1px solid var(--pets-brand-purple);
-                    }
 
-                    &.error {
-                        &::after {
-                            content: "Please select a valid frequency";
-                            margin: 1em 0rem 0;
-                            display: block;
-                            color: var(--pets-brand-red);
-                            background-image: url(https://editor-assets.abtasty.com/47297/6295f50d2c14e1653994765.svg);
-                            background-position: left center;
-                            background-repeat: no-repeat;
-                            background-size: 1rem 1rem;
-                            padding-left: 1.5rem;
-                        }
-                        
-                        & #purchase_frequency {
-                            appearance: revert;
-                            background: #ffc7c7;
-                            border-color: var(--pets-brand-red);
-                        }
+                        appearance: none;
+                        -webkit-appearance: none;
                     }
                 }
 

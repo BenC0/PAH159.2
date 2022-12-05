@@ -28,7 +28,7 @@ function pdp_actions() {
     if (elementManagement.exists(`[for="one-time-purchase"]`)) {
         elementManagement.get(`[for="one-time-purchase"]`).pop().click()
     }
-    price.insert(`[data-module="selector"]`)
+    price.insert(`[data-module="selector"], #add-to-basket`)
     // Insert new frequency/Easy Repeat element before anchor selector
     frequency_module.insert(anchor_selector, status.isER, price.update_price, status.isBoth)
     // Update the price in the new price element.

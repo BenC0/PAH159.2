@@ -5,64 +5,72 @@ import { is_in_list } from "../subscribe/init";
 import { checkout_is_valid } from "../checkout_fulfillment_method_preselection"
 
 function track_purchase_frequency_type_change() {
-    elementManagement.get(`#checkout-combo input[name="checkout"]`).forEach(el => {
-        el.addEventListener("change", e => {
-            if(e.currentTarget.id == "repeat-delivery") {
-                track(`Purchase Frequency Type Changed`, `Easy Repeat`, false)
-            } else if(e.currentTarget.id == "one-time-purchase") {
-                track(`Purchase Frequency Type Changed`, `One Time Purchase`, false)
-            }
+    if(elementManagement.exists("#checkout-combo")) {
+        elementManagement.get(`#checkout-combo input[name="checkout"]`).forEach(el => {
+            el.addEventListener("change", e => {
+                if(e.currentTarget.id == "repeat-delivery") {
+                    track(`Purchase Frequency Type Changed`, `Easy Repeat`, false)
+                } else if(e.currentTarget.id == "one-time-purchase") {
+                    track(`Purchase Frequency Type Changed`, `One Time Purchase`, false)
+                }
+            })
         })
-    })
+    }
 }
 
 function track_er_frequency_change() {
-    elementManagement.get(`#checkout-combo [data-module="input_select"] ul li`).forEach(el => {
-        watchForChange(el, _ => {
-            if (el.classList.contains("active")){ 
-                let v = el.dataset.value || "-1"
-                track(`Easy Repeat Frequency Changed to ${v}`, v, false)
-            }
+    if(elementManagement.exists("#checkout-combo")) {
+            elementManagement.get(`#checkout-combo [data-module="input_select"] ul li`).forEach(el => {
+            watchForChange(el, _ => {
+                if (el.classList.contains("active")){ 
+                    let v = el.dataset.value || "-1"
+                    track(`Easy Repeat Frequency Changed to ${v}`, v, false)
+                }
+            })
         })
-    })
+    }
 }
 
 function track_er_pet_name_change() {
-    elementManagement.get(`#checkout-combo #whichPet`).forEach(el => {
-        el.addEventListener("change", e => {
-            track(`Pet name changed`, `Pet name changed`, false)
+    if(elementManagement.exists("#checkout-combo")) {
+        elementManagement.get(`#checkout-combo #whichPet`).forEach(el => {
+            el.addEventListener("change", e => {
+                track(`Pet name changed`, `Pet name changed`, false)
+            })
         })
-    })
+    }
 }
 
 function track_qty_change() {
-    elementManagement.get(`#checkout-combo [name="quantity"], #add-to-basket [name="quantity"]`).forEach(el => {
-        el.setAttribute("last_val", el.value)
-    })
-
-    window.setInterval(_ => {
+    if(elementManagement.exists("#checkout-combo, #add-to-basket")) {
         elementManagement.get(`#checkout-combo [name="quantity"], #add-to-basket [name="quantity"]`).forEach(el => {
-            let changed = el.value !== el.getAttribute("last_val")
-            if (changed) {
-                track(`Quantity Changed`, `Quantity changed to ${el.value}`, false)
-                el.setAttribute("last_val", el.value)
-            }
+            el.setAttribute("last_val", el.value)
         })
-    }, 10)
 
-    elementManagement.getAll(`#checkout-combo .add-to-basket__change--add, #add-to-basket .add-to-basket__change--add`).forEach(el => {
-        el.addEventListener("click", e => {
-            let input = e.currentTarget.parentNode.querySelector("input")
-            track(`Quantity Increased`, `Increase to ${input.value}`, false)
-        })
-    })
+        window.setInterval(_ => {
+            elementManagement.get(`#checkout-combo [name="quantity"], #add-to-basket [name="quantity"]`).forEach(el => {
+                let changed = el.value !== el.getAttribute("last_val")
+                if (changed) {
+                    track(`Quantity Changed`, `Quantity changed to ${el.value}`, false)
+                    el.setAttribute("last_val", el.value)
+                }
+            })
+        }, 10)
 
-    elementManagement.getAll(`#checkout-combo .add-to-basket__change--minus, #add-to-basket .add-to-basket__change--minus`).forEach(el => {
-        el.addEventListener("click", e => {
-            let input = e.currentTarget.parentNode.querySelector("input")
-            track(`Quantity Decreased`, `Decrease to ${input.value}`, false)
+        elementManagement.getAll(`#checkout-combo .add-to-basket__change--add, #add-to-basket .add-to-basket__change--add`).forEach(el => {
+            el.addEventListener("click", e => {
+                let input = e.currentTarget.parentNode.querySelector("input")
+                track(`Quantity Increased`, `Increase to ${input.value}`, false)
+            })
         })
-    })
+
+        elementManagement.getAll(`#checkout-combo .add-to-basket__change--minus, #add-to-basket .add-to-basket__change--minus`).forEach(el => {
+            el.addEventListener("click", e => {
+                let input = e.currentTarget.parentNode.querySelector("input")
+                track(`Quantity Decreased`, `Decrease to ${input.value}`, false)
+            })
+        })
+    }
 }
 
 function pdp_tracking() {

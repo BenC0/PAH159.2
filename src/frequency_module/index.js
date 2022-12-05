@@ -33,6 +33,19 @@ export function active_toggle(e) {
     elementManagement.getAll(`[test="pah159_2"] .frequency`).forEach(el => el.classList.remove("active"))
     ct.classList.add("active")
     if (ct.classList.contains("er")) {
+        let needs_size_selection = elementManagement.exists(".pdp-er-tag__attrinfo")
+        let is_first_time = elementManagement.exists(`#erAvailTag:not([style="display: none;"])`)
+        if (needs_size_selection && is_first_time) {
+            console.warn({needs_size_selection, is_first_time})
+            let size = elementManagement.get(".pdp-er-tag__attrinfo").pop()
+            size = size.textContent || ""
+            size = size.split(" ").pop()
+            log({size}, true)
+            let input = elementManagement.get(`input[value="${size}"]`)
+            if(input.length !== 0) {
+                input.pop().click()
+            }
+        }
         elementManagement.get(`#checkout-combo label[for="repeat-delivery"]`).pop().click()
         track(`Purchase Frequency Type Changed`, `Easy Repeat`, false)
     } else {
@@ -83,6 +96,7 @@ export function add_er_size_messaging(el, target) {
 }
 
 export function update_frequency_availability() {
+    console.warn("update_frequency_availability")
     let selector = "#add-to-basket, #checkout-combo"
     if (elementManagement.exists(selector)) {
         let options = elementManagement.getAll(selector)
@@ -116,6 +130,7 @@ export function update_frequency_availability() {
             } else {
                 // only OTP avaialble
                 elementManagement.get(".frequency.otp").pop().classList.remove("inactive")
+                elementManagement.get(".frequency.otp").pop().click()
                 elementManagement.get(".frequency.er").pop().classList.add("inactive")
             }
         }
@@ -149,9 +164,15 @@ export function insert(anchor_selector, er_is_available, update_cb, is_both) {
         if (is_both) {
             update_frequency_availability()
         }
-
+        
         update_frequency_savings()
         update_frequency_options()
+
+        if (!is_both) {
+            active_toggle({
+                currentTarget: el.querySelector(".frequency.er")
+            })
+        }
         
         el.querySelectorAll(".frequency").forEach(el => {
             el.addEventListener("click", e => {
